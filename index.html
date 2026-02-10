@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Inner Anchor">
+<meta name="theme-color" content="#1a1f3d">
+<meta name="description" content="A wellness companion for anxiety, emotional mastery, and self-worth.">
+<title>Inner Anchor</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%231a1f3d'/%3E%3Ccircle cx='256' cy='220' r='80' fill='none' stroke='%23c4a265' stroke-width='6'/%3E%3Cpath d='M256 300 L256 380' fill='none' stroke='%23c4a265' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='220' r='12' fill='%23c4a265'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a1f3d;--navy-light:#252b50;--navy-mid:#2e3563;
+  --cream:#f5f0e8;--cream-dark:#e8e0d4;--cream-mid:#ede6db;
+  --sage:#7c9a8e;--sage-light:#a3bfb2;--sage-dark:#5f7d72;
+  --gold:#c4a265;--gold-light:#d4b87a;--gold-dim:#9a7e4e;
+  --lavender:#8b8aac;--rose:#c28b8b;--sky:#7aa3b8;
+  --text-primary:var(--navy);--text-secondary:#5a5f7a;--text-muted:#8a8da3;
+  --bg-primary:var(--cream);--bg-secondary:#faf7f2;--bg-card:#ffffff;
+  --bg-nav:rgba(245,240,232,0.92);
+  --shadow:0 2px 20px rgba(26,31,61,0.08);
+  --shadow-lg:0 8px 40px rgba(26,31,61,0.12);
+  --radius:16px;--radius-sm:10px;--radius-lg:24px;
+  --safe-top:env(safe-area-inset-top,20px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --nav-height:72px;
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'DM Sans',system-ui,sans-serif;
+}
+[data-theme="dark"]{
+  --text-primary:#e8e4dc;--text-secondary:#a8a5b8;--text-muted:#6e6d82;
+  --bg-primary:#121420;--bg-secondary:#181a28;--bg-card:#1e2035;
+  --bg-nav:rgba(18,20,32,0.94);
+  --shadow:0 2px 20px rgba(0,0,0,0.3);--shadow-lg:0 8px 40px rgba(0,0,0,0.4);
+  --navy:#e8e4dc;--cream-dark:#2a2c3e;--cream-mid:#222438;
+}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-body);color:var(--text-primary);
+  background:var(--bg-primary);min-height:100dvh;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  padding-top:var(--safe-top);
+  padding-bottom:calc(var(--nav-height) + var(--safe-bottom) + 16px);
+  transition:background .4s,color .4s;
+}
+#app{max-width:500px;margin:0 auto;position:relative;min-height:100dvh}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;bottom:0;left:0;right:0;
+  height:calc(var(--nav-height) + var(--safe-bottom));
+  padding-bottom:var(--safe-bottom);
+  background:var(--bg-nav);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(124,154,142,0.15);
+  display:flex;justify-content:space-around;align-items:flex-start;
+  padding-top:8px;z-index:100;
+}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  background:none;border:none;padding:6px 12px;cursor:pointer;
+  color:var(--text-muted);transition:color .3s;font-family:var(--font-body);
+  -webkit-tap-highlight-color:transparent;
+}
+.nav-btn.active{color:var(--sage)}
+.nav-btn svg{width:24px;height:24px;transition:transform .3s}
+.nav-btn.active svg{transform:scale(1.1)}
+.nav-btn span{font-size:11px;font-weight:500;letter-spacing:.3px}
+
+/* ===== VIEWS ===== */
+.view{display:none;padding:16px 20px;animation:fadeUp .4s ease}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== HOME ===== */
+.home-hero{
+  min-height:calc(100dvh - var(--nav-height) - var(--safe-top) - var(--safe-bottom) - 80px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:40px 8px;position:relative;
+}
+.greeting{font-family:var(--font-body);font-size:14px;color:var(--text-muted);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:32px;font-weight:400}
+.morning-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,rgba(196,162,101,0.15),rgba(124,154,142,0.15));
+  border:1px solid rgba(196,162,101,0.25);border-radius:20px;
+  padding:6px 14px;font-size:12px;color:var(--gold);margin-bottom:16px;
+  font-weight:500;letter-spacing:.5px;
+}
+.morning-badge::before{content:"☀";font-size:14px}
+.featured-message{
+  font-family:var(--font-display);font-size:clamp(22px,5.5vw,30px);
+  line-height:1.5;color:var(--text-primary);max-width:380px;
+  font-weight:300;font-style:italic;letter-spacing:-.2px;
+  opacity:0;animation:messageIn .8s .2s ease forwards;
+}
+@keyframes messageIn{to{opacity:1}}
+.featured-category{
+  margin-top:24px;font-size:12px;color:var(--sage);text-transform:uppercase;
+  letter-spacing:2px;font-weight:500;
+}
+.home-actions{display:flex;gap:16px;margin-top:40px;align-items:center}
+.action-btn{
+  width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(124,154,142,0.3);
+  background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--text-secondary);transition:all .3s;-webkit-tap-highlight-color:transparent;
+}
+.action-btn:active{transform:scale(.92)}
+.action-btn.hearted{color:var(--rose);border-color:var(--rose)}
+.action-btn svg{width:22px;height:22px}
+.action-btn.primary{
+  width:56px;height:56px;background:var(--sage);border:none;color:white;
+  box-shadow:0 4px 16px rgba(124,154,142,0.35);
+}
+.home-dots{display:flex;gap:6px;margin-top:32px}
+.home-dot{width:6px;height:6px;border-radius:50%;background:var(--cream-dark);transition:all .3s}
+[data-theme="dark"] .home-dot{background:var(--navy-mid)}
+.home-dot.active{background:var(--sage);width:18px;border-radius:3px}
+
+/* ===== BREATHE ===== */
+.breathe-title{font-family:var(--font-display);font-size:28px;font-weight:300;margin-bottom:8px}
+.breathe-sub{color:var(--text-muted);font-size:14px;margin-bottom:28px;line-height:1.5}
+.exercise-cards{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.exercise-card{
+  background:var(--bg-card);border-radius:var(--radius);padding:20px;
+  border:1px solid rgba(124,154,142,0.12);cursor:pointer;
+  transition:all .3s;display:flex;align-items:center;gap:16px;
+  -webkit-tap-highlight-color:transparent;box-shadow:var(--shadow);
+}
+.exercise-card:active{transform:scale(.98)}
+.exercise-card.selected{border-color:var(--sage);background:rgba(124,154,142,0.06)}
+.exercise-icon{
+  width:48px;height:48px;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;
+}
+.exercise-icon.peace{background:rgba(122,163,184,0.15);color:var(--sky)}
+.exercise-icon.box{background:rgba(196,162,101,0.15);color:var(--gold)}
+.exercise-icon.calm{background:rgba(124,154,142,0.15);color:var(--sage)}
+.exercise-info h3{font-size:16px;font-weight:500;margin-bottom:4px}
+.exercise-info p{font-size:13px;color:var(--text-muted);line-height:1.4}
+
+.breathe-arena{
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;min-height:60vh;text-align:center;
+}
+.breathe-arena.active{display:flex}
+.breath-circle-wrap{position:relative;width:220px;height:220px;margin-bottom:40px}
+.breath-circle{
+  width:220px;height:220px;border-radius:50%;
+  border:3px solid var(--sage);position:absolute;
+  transition:transform 1s ease-in-out;
+  display:flex;align-items:center;justify-content:center;
+}
+.breath-circle.inhale{transform:scale(1);border-color:var(--sage)}
+.breath-circle.hold{transform:scale(1);border-color:var(--gold)}
+.breath-circle.exhale{transform:scale(0.6);border-color:var(--lavender)}
+.breath-inner{
+  width:20px;height:20px;border-radius:50%;background:var(--sage);
+  transition:all 1s ease-in-out;
+}
+.breath-circle.inhale .breath-inner{transform:scale(3);background:var(--sage);opacity:.4}
+.breath-circle.hold .breath-inner{transform:scale(3);background:var(--gold);opacity:.35}
+.breath-circle.exhale .breath-inner{transform:scale(1);background:var(--lavender);opacity:.5}
+.breath-label{
+  font-family:var(--font-display);font-size:24px;font-weight:300;
+  color:var(--text-primary);margin-bottom:8px;min-height:36px;
+}
+.breath-timer{font-size:48px;font-weight:300;color:var(--text-muted);margin-bottom:8px;font-family:var(--font-body)}
+.breath-cycles{font-size:13px;color:var(--text-muted);margin-bottom:32px}
+.breathe-controls{display:flex;gap:16px}
+.btn{
+  padding:14px 32px;border-radius:var(--radius);border:none;
+  font-family:var(--font-body);font-size:15px;font-weight:500;
+  cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--sage);color:white;box-shadow:0 4px 16px rgba(124,154,142,0.3)}
+.btn-secondary{background:transparent;color:var(--text-secondary);border:1.5px solid rgba(124,154,142,0.3)}
+.btn-small{padding:10px 20px;font-size:13px;border-radius:var(--radius-sm)}
+
+/* ===== JOURNAL ===== */
+.journal-title{font-family:var(--font-display);font-size:28px;font-weight:300;margin-bottom:8px}
+.journal-sub{color:var(--text-muted);font-size:14px;margin-bottom:24px}
+.mood-picker{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px}
+.mood-btn{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:12px 10px;border-radius:var(--radius-sm);border:1.5px solid rgba(124,154,142,0.15);
+  background:var(--bg-card);cursor:pointer;transition:all .3s;
+  min-width:72px;font-family:var(--font-body);-webkit-tap-highlight-color:transparent;
+}
+.mood-btn:active{transform:scale(.94)}
+.mood-btn.selected{border-color:var(--sage);background:rgba(124,154,142,0.08)}
+.mood-emoji{font-size:24px}
+.mood-label{font-size:11px;color:var(--text-muted);font-weight:500}
+.journal-input{
+  width:100%;min-height:100px;padding:16px;border-radius:var(--radius);
+  border:1.5px solid rgba(124,154,142,0.15);background:var(--bg-card);
+  font-family:var(--font-body);font-size:15px;color:var(--text-primary);
+  resize:none;outline:none;transition:border-color .3s;line-height:1.6;
+}
+.journal-input:focus{border-color:var(--sage)}
+.journal-input::placeholder{color:var(--text-muted)}
+.char-count{text-align:right;font-size:12px;color:var(--text-muted);margin-top:6px}
+.journal-submit{margin-top:16px;width:100%}
+.section-label{
+  font-size:13px;font-weight:600;color:var(--text-muted);text-transform:uppercase;
+  letter-spacing:1.5px;margin:32px 0 16px;
+}
+.journal-entries{display:flex;flex-direction:column;gap:12px;padding-bottom:20px}
+.journal-entry{
+  background:var(--bg-card);border-radius:var(--radius);padding:16px;
+  border:1px solid rgba(124,154,142,0.1);box-shadow:var(--shadow);
+}
+.entry-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.entry-date{font-size:12px;color:var(--text-muted)}
+.entry-mood{font-size:20px}
+.entry-text{font-size:14px;line-height:1.6;color:var(--text-secondary)}
+.mood-chart{
+  display:flex;align-items:flex-end;gap:8px;height:120px;
+  padding:16px;background:var(--bg-card);border-radius:var(--radius);
+  border:1px solid rgba(124,154,142,0.1);margin-bottom:8px;box-shadow:var(--shadow);
+}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.chart-bar{
+  width:100%;border-radius:6px 6px 0 0;min-height:4px;
+  transition:height .5s ease;background:var(--sage);opacity:.7;
+}
+.chart-day{font-size:10px;color:var(--text-muted);font-weight:500}
+.chart-label{font-size:11px;color:var(--text-muted);text-align:center;margin-bottom:4px}
+
+/* ===== LIBRARY ===== */
+.library-title{font-family:var(--font-display);font-size:28px;font-weight:300;margin-bottom:8px}
+.library-sub{color:var(--text-muted);font-size:14px;margin-bottom:20px}
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:20px;-webkit-overflow-scrolling:touch}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{
+  white-space:nowrap;padding:8px 16px;border-radius:20px;border:1.5px solid rgba(124,154,142,0.2);
+  background:transparent;font-family:var(--font-body);font-size:13px;font-weight:500;
+  color:var(--text-muted);cursor:pointer;transition:all .3s;-webkit-tap-highlight-color:transparent;
+}
+.cat-tab.active{background:var(--sage);color:white;border-color:var(--sage)}
+.message-list{display:flex;flex-direction:column;gap:12px;padding-bottom:20px}
+.message-card{
+  background:var(--bg-card);border-radius:var(--radius);padding:20px;
+  border:1px solid rgba(124,154,142,0.1);box-shadow:var(--shadow);
+  position:relative;transition:all .3s;
+}
+.message-text{font-family:var(--font-display);font-size:16px;font-weight:300;
+  font-style:italic;line-height:1.6;padding-right:36px}
+.message-cat{font-size:11px;color:var(--sage);text-transform:uppercase;letter-spacing:1.5px;
+  margin-top:12px;font-weight:500;font-family:var(--font-body);font-style:normal}
+.fav-btn{
+  position:absolute;top:16px;right:16px;background:none;border:none;
+  cursor:pointer;color:var(--text-muted);transition:all .3s;padding:4px;
+  -webkit-tap-highlight-color:transparent;
+}
+.fav-btn.hearted{color:var(--rose)}
+.fav-btn svg{width:20px;height:20px}
+
+.mantra-section{margin-top:32px}
+.mantra-input-wrap{display:flex;gap:8px}
+.mantra-input{
+  flex:1;padding:12px 16px;border-radius:var(--radius-sm);
+  border:1.5px solid rgba(124,154,142,0.15);background:var(--bg-card);
+  font-family:var(--font-body);font-size:14px;color:var(--text-primary);
+  outline:none;transition:border .3s;
+}
+.mantra-input:focus{border-color:var(--sage)}
+.mantra-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.mantra-item{
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--bg-card);border-radius:var(--radius-sm);padding:14px 16px;
+  border:1px solid rgba(196,162,101,0.15);font-size:14px;
+  font-family:var(--font-display);font-style:italic;
+}
+.mantra-del{background:none;border:none;color:var(--text-muted);cursor:pointer;padding:4px;font-size:18px}
+
+/* ===== SETTINGS ===== */
+.settings-title{font-family:var(--font-display);font-size:28px;font-weight:300;margin-bottom:24px}
+.setting-group{margin-bottom:28px}
+.setting-group-title{font-size:13px;font-weight:600;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px}
+.setting-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:14px 0;border-bottom:1px solid rgba(124,154,142,0.1);
+}
+.setting-label{font-size:15px;font-weight:400}
+.setting-desc{font-size:12px;color:var(--text-muted);margin-top:2px}
+.toggle{
+  width:50px;height:28px;border-radius:14px;
+  background:var(--cream-dark);border:none;cursor:pointer;
+  position:relative;transition:background .3s;-webkit-tap-highlight-color:transparent;
+}
+[data-theme="dark"] .toggle{background:var(--navy-mid)}
+.toggle.on{background:var(--sage)}
+.toggle::after{
+  content:'';position:absolute;width:22px;height:22px;border-radius:50%;
+  background:white;top:3px;left:3px;transition:transform .3s;
+  box-shadow:0 1px 4px rgba(0,0,0,.15);
+}
+.toggle.on::after{transform:translateX(22px)}
+.time-input{
+  padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid rgba(124,154,142,0.2);
+  background:var(--bg-card);font-family:var(--font-body);font-size:14px;
+  color:var(--text-primary);outline:none;width:110px;text-align:center;
+}
+.crisis-card{
+  background:linear-gradient(135deg,rgba(124,154,142,0.1),rgba(122,163,184,0.1));
+  border:1px solid rgba(124,154,142,0.2);border-radius:var(--radius);
+  padding:20px;margin-top:8px;
+}
+.crisis-card h4{font-size:15px;font-weight:500;margin-bottom:8px;color:var(--text-primary)}
+.crisis-card p{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:4px}
+.crisis-card a{color:var(--sage);text-decoration:none;font-weight:500}
+
+/* ===== ONBOARDING ===== */
+.onboard-overlay{
+  position:fixed;inset:0;background:var(--navy);z-index:200;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px 32px;color:white;
+  transition:opacity .6s,visibility .6s;
+}
+.onboard-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.onboard-icon{font-size:64px;margin-bottom:32px;opacity:.9}
+.onboard-title{font-family:var(--font-display);font-size:32px;font-weight:300;margin-bottom:16px}
+.onboard-text{font-size:15px;opacity:.7;line-height:1.7;max-width:320px;margin-bottom:40px}
+.onboard-btn{
+  padding:16px 48px;border-radius:var(--radius);background:var(--sage);
+  color:white;border:none;font-family:var(--font-body);font-size:16px;
+  font-weight:500;cursor:pointer;transition:transform .3s;
+}
+.onboard-btn:active{transform:scale(.96)}
+.onboard-skip{
+  margin-top:16px;background:none;border:none;color:rgba(255,255,255,.4);
+  font-family:var(--font-body);font-size:13px;cursor:pointer;
+}
+
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;top:calc(var(--safe-top) + 16px);left:50%;transform:translateX(-50%) translateY(-80px);
+  background:var(--bg-card);color:var(--text-primary);padding:14px 24px;
+  border-radius:var(--radius);box-shadow:var(--shadow-lg);font-size:14px;
+  z-index:300;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  border:1px solid rgba(124,154,142,0.15);max-width:90vw;text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ===== UTILITIES ===== */
+.empty-state{text-align:center;padding:48px 20px;color:var(--text-muted);font-size:14px;line-height:1.7}
+.empty-icon{font-size:40px;margin-bottom:12px;opacity:.5}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- Onboarding -->
+  <div class="onboard-overlay" id="onboarding">
+    <div class="onboard-icon">⚓</div>
+    <div class="onboard-title">Inner Anchor</div>
+    <div class="onboard-text">A quiet space for your mind. Thought-provoking messages, breathing exercises, and gentle reflection — especially when your body needs it most.</div>
+    <button class="onboard-btn" id="onboard-start">Begin</button>
+    <button class="onboard-skip" id="onboard-notify">Enable notifications for morning messages</button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- === HOME === -->
+  <div class="view active" id="view-home">
+    <div class="home-hero">
+      <div class="greeting" id="greeting"></div>
+      <div class="morning-badge" id="morning-badge" style="display:none">Morning Shield Active</div>
+      <div class="featured-message" id="featured-msg"></div>
+      <div class="featured-category" id="featured-cat"></div>
+      <div class="home-actions">
+        <button class="action-btn" id="home-heart" title="Save to favorites">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+        <button class="action-btn primary" id="home-next" title="Next message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <button class="action-btn" id="home-share" title="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === BREATHE === -->
+  <div class="view" id="view-breathe">
+    <div id="breathe-select">
+      <div class="breathe-title">Breathe</div>
+      <div class="breathe-sub">Choose an exercise. Close your eyes if you'd like — haptic pulses will guide you through each phase.</div>
+      <div class="exercise-cards">
+        <div class="exercise-card" data-exercise="478">
+          <div class="exercise-icon peace">🌊</div>
+          <div class="exercise-info">
+            <h3>4-7-8 Calm</h3>
+            <p>Deep anxiety relief. Inhale 4s, hold 7s, exhale 8s. Activates your parasympathetic nervous system.</p>
+          </div>
+        </div>
+        <div class="exercise-card" data-exercise="box">
+          <div class="exercise-icon box">🔲</div>
+          <div class="exercise-info">
+            <h3>Box Breathing</h3>
+            <p>Used by Navy SEALs. Equal 4s phases — inhale, hold, exhale, hold. Builds focus under pressure.</p>
+          </div>
+        </div>
+        <div class="exercise-card" data-exercise="55">
+          <div class="exercise-icon calm">🌿</div>
+          <div class="exercise-info">
+            <h3>Equal Breathing</h3>
+            <p>Simple and centering. 5s in, 5s out. Perfect for beginners or a quick reset anytime.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="breathe-arena" id="breathe-arena">
+      <div class="breath-circle-wrap">
+        <div class="breath-circle" id="breath-circle">
+          <div class="breath-inner"></div>
+        </div>
+      </div>
+      <div class="breath-label" id="breath-label">Ready</div>
+      <div class="breath-timer" id="breath-timer">0</div>
+      <div class="breath-cycles" id="breath-cycles"></div>
+      <div class="breathe-controls">
+        <button class="btn btn-secondary btn-small" id="breath-stop">End</button>
+        <button class="btn btn-primary btn-small" id="breath-start">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === JOURNAL === -->
+  <div class="view" id="view-journal">
+    <div class="journal-title">Reflect</div>
+    <div class="journal-sub">No pressure. Just a moment to check in with yourself.</div>
+    <div class="mood-picker" id="mood-picker">
+      <button class="mood-btn" data-mood="calm"><span class="mood-emoji">😌</span><span class="mood-label">Calm</span></button>
+      <button class="mood-btn" data-mood="anxious"><span class="mood-emoji">😰</span><span class="mood-label">Anxious</span></button>
+      <button class="mood-btn" data-mood="frustrated"><span class="mood-emoji">😤</span><span class="mood-label">Frustrated</span></button>
+      <button class="mood-btn" data-mood="low"><span class="mood-emoji">😔</span><span class="mood-label">Low</span></button>
+      <button class="mood-btn" data-mood="neutral"><span class="mood-emoji">😐</span><span class="mood-label">Neutral</span></button>
+      <button class="mood-btn" data-mood="grateful"><span class="mood-emoji">🙏</span><span class="mood-label">Grateful</span></button>
+      <button class="mood-btn" data-mood="hopeful"><span class="mood-emoji">✨</span><span class="mood-label">Hopeful</span></button>
+    </div>
+    <textarea class="journal-input" id="journal-text" placeholder="What's on your mind? (optional)" maxlength="500"></textarea>
+    <div class="char-count"><span id="char-count">0</span>/500</div>
+    <button class="btn btn-primary journal-submit" id="journal-save">Save Entry</button>
+    
+    <div class="section-label">This Week</div>
+    <div class="chart-label">Your mood over the last 7 days</div>
+    <div class="mood-chart" id="mood-chart"></div>
+    
+    <div class="section-label">Recent Entries</div>
+    <div class="journal-entries" id="journal-entries"></div>
+  </div>
+
+  <!-- === LIBRARY === -->
+  <div class="view" id="view-library">
+    <div class="library-title">Library</div>
+    <div class="library-sub">Browse messages or revisit your favorites.</div>
+    <div class="cat-tabs" id="cat-tabs">
+      <button class="cat-tab active" data-cat="all">All</button>
+      <button class="cat-tab" data-cat="favorites">♡ Favorites</button>
+      <button class="cat-tab" data-cat="peace">Inner Peace</button>
+      <button class="cat-tab" data-cat="mastery">Emotional Mastery</button>
+      <button class="cat-tab" data-cat="worth">Self-Worth</button>
+      <button class="cat-tab" data-cat="perspective">Perspective</button>
+      <button class="cat-tab" data-cat="gratitude">Gratitude</button>
+    </div>
+    <div class="message-list" id="message-list"></div>
+    
+    <div class="mantra-section">
+      <div class="section-label">Your Personal Mantras</div>
+      <div class="mantra-input-wrap">
+        <input class="mantra-input" id="mantra-input" placeholder="Write your own affirmation..." maxlength="200">
+        <button class="btn btn-primary btn-small" id="mantra-add">Add</button>
+      </div>
+      <div class="mantra-list" id="mantra-list"></div>
+    </div>
+  </div>
+
+  <!-- === SETTINGS === -->
+  <div class="view" id="view-settings">
+    <div class="settings-title">Settings</div>
+    
+    <div class="setting-group">
+      <div class="setting-group-title">Morning Shield</div>
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Morning Shield Mode</div>
+          <div class="setting-desc">Extra messages during your cortisol window</div>
+        </div>
+        <button class="toggle on" id="toggle-morning" data-key="morningShield"></button>
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">Window Start</div></div>
+        <input type="time" class="time-input" id="morning-start" value="07:00">
+      </div>
+      <div class="setting-row">
+        <div><div class="setting-label">Window End</div></div>
+        <input type="time" class="time-input" id="morning-end" value="09:00">
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-group-title">Notifications</div>
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Push Notifications</div>
+          <div class="setting-desc" id="notif-status">Tap to enable</div>
+        </div>
+        <button class="toggle" id="toggle-notif"></button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-group-title">Appearance</div>
+      <div class="setting-row">
+        <div><div class="setting-label">Dark Mode</div></div>
+        <button class="toggle" id="toggle-dark" data-key="darkMode"></button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-group-title">Categories</div>
+      <div class="setting-row"><div><div class="setting-label">Inner Peace</div></div><button class="toggle on" data-key="cat_peace"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Emotional Mastery</div></div><button class="toggle on" data-key="cat_mastery"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Self-Worth</div></div><button class="toggle on" data-key="cat_worth"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Perspective Shifts</div></div><button class="toggle on" data-key="cat_perspective"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Gratitude & Presence</div></div><button class="toggle on" data-key="cat_gratitude"></button></div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-group-title">Data</div>
+      <div class="setting-row">
+        <div><div class="setting-label">Export Journal</div><div class="setting-desc">Download your entries as a text file</div></div>
+        <button class="btn btn-secondary btn-small" id="export-btn">Export</button>
+      </div>
+      <div class="setting-row">
+        <div>
+          <div class="setting-label">Streak</div>
+          <div class="setting-desc" id="streak-display">0 days</div>
+        </div>
+        <span style="font-size:24px" id="streak-icon">🌱</span>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div class="setting-group-title">Support & Safety</div>
+      <div class="crisis-card">
+        <h4>You are not alone</h4>
+        <p><strong>988 Suicide & Crisis Lifeline:</strong> Call or text <a href="tel:988">988</a></p>
+        <p><strong>Crisis Text Line:</strong> Text HOME to <a href="sms:741741">741741</a></p>
+        <p><strong>SAMHSA Helpline:</strong> <a href="tel:18006624357">1-800-662-4357</a></p>
+        <p style="margin-top:8px;font-size:12px;color:var(--text-muted)">These services are free, confidential, and available 24/7.</p>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-family:var(--font-display);font-size:18px;opacity:.6;margin-bottom:4px">Inner Anchor</div>
+        <div style="font-size:12px;color:var(--text-muted)">v1.0 — Your mind deserves a gentle place to land.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === NAV === -->
+  <nav class="nav">
+    <button class="nav-btn active" data-view="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="nav-btn" data-view="breathe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+      <span>Breathe</span>
+    </button>
+    <button class="nav-btn" data-view="journal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      <span>Reflect</span>
+    </button>
+    <button class="nav-btn" data-view="library">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Library</span>
+    </button>
+    <button class="nav-btn" data-view="settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+</div>
+
+<script>
+// ============================================
+// MESSAGE LIBRARY — 260+ curated messages
+// ============================================
+const MESSAGES=[
+// INNER PEACE (peace) — 52 messages
+{id:1,t:"The storm you feel inside is not who you are — it's weather passing through. You are the sky.",c:"peace"},
+{id:2,t:"Peace isn't the absence of noise. It's the choice to stop arguing with reality.",c:"peace"},
+{id:3,t:"Your nervous system learned to be on guard to protect you. Thank it, then remind it: you're safe right now.",c:"peace"},
+{id:4,t:"You don't have to solve everything today. Some knots untangle themselves when you stop pulling.",c:"peace"},
+{id:5,t:"Anxiety is your mind rehearsing for danger that hasn't arrived. Gently bring it back to what's actually here.",c:"peace"},
+{id:6,t:"The river doesn't fight the rocks. It flows around them and becomes smoother for the journey.",c:"peace"},
+{id:7,t:"Rest is not a reward you earn. It's a requirement your body is asking for.",c:"peace"},
+{id:8,t:"You are allowed to be a masterpiece and a work in progress at the same time.",c:"peace"},
+{id:9,t:"Stillness is not doing nothing. It's aligning everything inside you.",c:"peace"},
+{id:10,t:"The most powerful thing you can do right now is take one slow breath and mean it.",c:"peace"},
+{id:11,t:"Not every thought deserves a throne in your mind. Some are just passing tourists.",c:"peace"},
+{id:12,t:"Your body keeps the score, but you get to write the next chapter.",c:"peace"},
+{id:13,t:"Safety is not the absence of threat. It's the presence of trust in your ability to cope.",c:"peace"},
+{id:14,t:"The ocean is never still, but it is always whole. So are you.",c:"peace"},
+{id:15,t:"Worry is a conversation with a future that doesn't exist yet. Come back to now.",c:"peace"},
+{id:16,t:"You've survived every worst day you've ever had. That's not luck — that's endurance.",c:"peace"},
+{id:17,t:"A quiet mind is not an empty mind. It's one that has stopped fighting itself.",c:"peace"},
+{id:18,t:"Let the urgency pass. What remains is what actually matters.",c:"peace"},
+{id:19,t:"Your breath is the only thing that exists in both the voluntary and involuntary world. Use it as a bridge.",c:"peace"},
+{id:20,t:"The trees don't anxiously wait for spring. They simply rest in winter, trusting what's coming.",c:"peace"},
+{id:21,t:"You don't need to understand the entire ocean to swim in it. Start where you are.",c:"peace"},
+{id:22,t:"Tension is who you think you should be. Relaxation is who you are.",c:"peace"},
+{id:23,t:"There is a version of this moment where nothing is wrong. You're allowed to visit it.",c:"peace"},
+{id:24,t:"The space between your thoughts is not empty. It's where peace lives.",c:"peace"},
+{id:25,t:"Healing doesn't mean the wound never existed. It means it no longer controls the story.",c:"peace"},
+{id:26,t:"You were not designed to carry everything at once. Set something down today.",c:"peace"},
+{id:27,t:"Calm is not something you find. It's something you return to. It's already inside you.",c:"peace"},
+{id:28,t:"The moon doesn't compete with the sun. It waits for its own time to shine. So can you.",c:"peace"},
+{id:29,t:"Your alarm bells were installed for survival, not for daily commutes. It's okay to turn them down.",c:"peace"},
+{id:30,t:"Peace begins the moment you choose not to let another person or situation control your emotions.",c:"peace"},
+{id:31,t:"The world is loud. You are allowed to be quiet.",c:"peace"},
+{id:32,t:"Every exhale is a small act of letting go. Practice it intentionally today.",c:"peace"},
+{id:33,t:"You are not behind. There is no schedule for becoming who you are.",c:"peace"},
+{id:34,t:"Uncertainty is uncomfortable, but it's also the birthplace of every good thing that surprised you.",c:"peace"},
+{id:35,t:"The ground beneath you is holding you up right now. You don't have to hold it together alone.",c:"peace"},
+{id:36,t:"Your mind is a garden, not a battlefield. Plant what you want to grow.",c:"peace"},
+{id:37,t:"Sometimes peace looks like turning off your phone, closing your eyes, and refusing to participate in chaos.",c:"peace"},
+{id:38,t:"The present moment is the only one that's real. Everything else is memory or imagination.",c:"peace"},
+{id:39,t:"You don't owe anyone an explanation for protecting your peace.",c:"peace"},
+{id:40,t:"Even the most turbulent ocean is still at the bottom. Find your depth today.",c:"peace"},
+{id:41,t:"Slow down. The finish line isn't going anywhere, but your wellbeing might.",c:"peace"},
+{id:42,t:"Grace under pressure isn't gritting your teeth. It's softening into what is.",c:"peace"},
+{id:43,t:"Your to-do list is not a measure of your value. Some of the most important work is invisible.",c:"peace"},
+{id:44,t:"Nature doesn't hurry, yet everything is accomplished. Trust your own timing.",c:"peace"},
+{id:45,t:"Surrender is not giving up. It's giving over. Let what needs to flow, flow.",c:"peace"},
+{id:46,t:"The candle doesn't fight the darkness. It simply offers its light. You can do the same.",c:"peace"},
+{id:47,t:"You have permission to outgrow environments that no longer serve you, even if they once saved you.",c:"peace"},
+{id:48,t:"Silence is not awkward. It's the sound of not performing.",c:"peace"},
+{id:49,t:"When the mind races, the body anchors. Press your feet to the ground and arrive here.",c:"peace"},
+{id:50,t:"You are the calm you've been looking for. Stop looking outward.",c:"peace"},
+{id:51,t:"Anxiety lies about time. It insists everything must be solved now. Almost nothing does.",c:"peace"},
+{id:52,t:"Mountains don't move for the wind. They've learned to let it pass. So can you.",c:"peace"},
+
+// EMOTIONAL MASTERY (mastery) — 52 messages
+{id:53,t:"Anger is information, not instruction. Feel it fully, then choose what to do with it.",c:"mastery"},
+{id:54,t:"The pause between stimulus and response is where your power lives. Practice widening that gap today.",c:"mastery"},
+{id:55,t:"You don't have to attend every argument you're invited to. Your energy is yours to spend.",c:"mastery"},
+{id:56,t:"Reacting makes you a passenger. Responding makes you the pilot. Choose the cockpit.",c:"mastery"},
+{id:57,t:"The strongest people aren't those who never feel rage. They're the ones who feel it and still choose wisely.",c:"mastery"},
+{id:58,t:"Before you send that message, ask: am I trying to be heard, or am I trying to hurt?",c:"mastery"},
+{id:59,t:"Your emotions are data points, not directives. Observe them before obeying them.",c:"mastery"},
+{id:60,t:"Frustration is often just exhaustion wearing a mask. Check what you actually need right now.",c:"mastery"},
+{id:61,t:"Controlling your temper is not weakness. It's the most disciplined form of strength.",c:"mastery"},
+{id:62,t:"The person who hurt you is not in the room right now. The anger you carry is hurting only you.",c:"mastery"},
+{id:63,t:"Emotional intelligence is not about never getting angry. It's about not letting anger drive the car.",c:"mastery"},
+{id:64,t:"When someone pushes your buttons, remember: you installed those buttons. You can rewire them.",c:"mastery"},
+{id:65,t:"You are not responsible for other people's behavior. You are responsible for how you carry it.",c:"mastery"},
+{id:66,t:"The fire inside you can forge or destroy. What you create with it is your choice.",c:"mastery"},
+{id:67,t:"Patience is not passive. It's the discipline of choosing the right moment to act.",c:"mastery"},
+{id:68,t:"Letting it go doesn't mean it didn't matter. It means you matter more.",c:"mastery"},
+{id:69,t:"The need to be right can cost you the relationship. Decide what you're really fighting for.",c:"mastery"},
+{id:70,t:"Your worst moments don't define you, but your recovery from them does.",c:"mastery"},
+{id:71,t:"Silence is sometimes the most powerful response. Not every provocation deserves your voice.",c:"mastery"},
+{id:72,t:"When you feel the heat rising, name it. 'I am feeling angry.' Naming it begins to tame it.",c:"mastery"},
+{id:73,t:"An apology is not a defeat. It's the bravest thing a strong person can do.",c:"mastery"},
+{id:74,t:"The goal is not to never get upset. It's to shorten the distance between upset and understanding.",c:"mastery"},
+{id:75,t:"You cannot control the ocean, but you can learn to surf. Ride this feeling — don't drown in it.",c:"mastery"},
+{id:76,t:"Resentment is like drinking poison and waiting for the other person to feel it. Put the cup down.",c:"mastery"},
+{id:77,t:"Ask yourself: Will this matter in five years? If not, don't give it more than five minutes.",c:"mastery"},
+{id:78,t:"People who trigger you are your unintentional teachers. What lesson is this one offering?",c:"mastery"},
+{id:79,t:"Your jaw is clenched. Your shoulders are raised. Your body is keeping score. Release it now.",c:"mastery"},
+{id:80,t:"Boundaries are not walls. They're the terms under which you're willing to stay.",c:"mastery"},
+{id:81,t:"Anger without direction is destruction. Anger with direction is change.",c:"mastery"},
+{id:82,t:"The most dangerous stories are the ones you tell yourself about other people's intentions.",c:"mastery"},
+{id:83,t:"Conflict doesn't require a winner. Sometimes the best outcome is mutual understanding.",c:"mastery"},
+{id:84,t:"It takes more strength to pause than to punch. That pause is where character lives.",c:"mastery"},
+{id:85,t:"Every time you choose calm over chaos, you're reprogramming decades of habit. That's extraordinary.",c:"mastery"},
+{id:86,t:"Don't let a five-second emotion make a five-year decision for you.",c:"mastery"},
+{id:87,t:"The things that bother you most often reveal what you care about most. Examine that.",c:"mastery"},
+{id:88,t:"You are allowed to set down the sword. Not every day has to be a battle.",c:"mastery"},
+{id:89,t:"Emotional endurance isn't about suppression. It's about having the stamina to feel without fracturing.",c:"mastery"},
+{id:90,t:"Impulsive words are easy to say and impossible to unsay. Guard your mouth like it's sacred ground.",c:"mastery"},
+{id:91,t:"You've made it through every difficult emotion you've ever felt. Your track record is perfect.",c:"mastery"},
+{id:92,t:"Consider: they might be having their worst day too. Compassion costs nothing and changes everything.",c:"mastery"},
+{id:93,t:"You can disagree without being disagreeable. Hold your truth without wielding it as a weapon.",c:"mastery"},
+{id:94,t:"The volume of your voice has nothing to do with the validity of your point.",c:"mastery"},
+{id:95,t:"Walking away from a fight is not cowardice. It's choosing the battlefield that actually matters.",c:"mastery"},
+{id:96,t:"Your nervous system was designed for saber-tooth tigers, not traffic jams. Recalibrate.",c:"mastery"},
+{id:97,t:"Forgiveness is not saying it was okay. It's saying you won't let it occupy your mind rent-free anymore.",c:"mastery"},
+{id:98,t:"Behind most anger is either fear, hurt, or exhaustion. What's really going on?",c:"mastery"},
+{id:99,t:"Strong emotions are waves. They rise, they peak, they fall. No wave lasts forever.",c:"mastery"},
+{id:100,t:"You can be firm without being cruel. You can set limits without losing your humanity.",c:"mastery"},
+{id:101,t:"The most important conversations you'll ever have are the ones with yourself. Make them kind.",c:"mastery"},
+{id:102,t:"Maturity is learning that you can be bothered and still be at peace.",c:"mastery"},
+{id:103,t:"Your emotional patterns are not your personality. They are habits. And habits can change.",c:"mastery"},
+{id:104,t:"Take the space you need before you respond. Nobody ever regretted waiting an hour.",c:"mastery"},
+
+// SELF-WORTH (worth) — 52 messages
+{id:105,t:"You were not put here to earn your right to exist. That was settled the moment you arrived.",c:"worth"},
+{id:106,t:"Stop measuring your worth by your productivity. You are not a machine with a quarterly report.",c:"worth"},
+{id:107,t:"The people who couldn't see your value were not your audience.",c:"worth"},
+{id:108,t:"You don't need to be extraordinary to be worthy of love. Ordinary you is more than enough.",c:"worth"},
+{id:109,t:"Comparison is a conversation between your life and a fiction you invented about theirs.",c:"worth"},
+{id:110,t:"The standards you're failing to meet — who set them? Were they even yours?",c:"worth"},
+{id:111,t:"Your mistakes are receipts of courage, not evidence of failure.",c:"worth"},
+{id:112,t:"You are allowed to take up space. Your existence is not an inconvenience.",c:"worth"},
+{id:113,t:"Nobody on their deathbed wished they'd been harder on themselves. Be kinder.",c:"worth"},
+{id:114,t:"You are not your resume. You are not your bank account. You are not other people's opinions of you.",c:"worth"},
+{id:115,t:"The way you speak to yourself becomes the house you live in. Build a kind one.",c:"worth"},
+{id:116,t:"Perfection is a cage disguised as a goal. Break out.",c:"worth"},
+{id:117,t:"You've been carrying yourself through impossible things. Give yourself credit for still being here.",c:"worth"},
+{id:118,t:"Your worth is not up for debate. It was never conditional.",c:"worth"},
+{id:119,t:"The hardest person to believe in is often yourself. Start small. Start today.",c:"worth"},
+{id:120,t:"You don't need permission to be proud of yourself. Not from anyone.",c:"worth"},
+{id:121,t:"Self-compassion is not self-indulgence. It's the foundation everything else is built on.",c:"worth"},
+{id:122,t:"You deserve the same kindness you so freely give to everyone else.",c:"worth"},
+{id:123,t:"Your sensitivity is not a flaw. In a world that rewards numbness, feeling deeply is radical courage.",c:"worth"},
+{id:124,t:"Being gentle with yourself is not a sign of weakness. It's a form of intelligence.",c:"worth"},
+{id:125,t:"You are not 'too much.' The spaces that feel small were never built for someone your size.",c:"worth"},
+{id:126,t:"The voice telling you that you're not enough is not your voice. It's just the loudest one.",c:"worth"},
+{id:127,t:"Your journey doesn't need to look like anyone else's to be valid.",c:"worth"},
+{id:128,t:"You don't owe anyone a thinner, quieter, more agreeable version of yourself.",c:"worth"},
+{id:129,t:"Being kind to yourself is the most productive thing you can do. Everything else flows from it.",c:"worth"},
+{id:130,t:"If you talked to your friends the way you talk to yourself, would you still have any?",c:"worth"},
+{id:131,t:"Your presence is enough. You don't have to perform to be valued.",c:"worth"},
+{id:132,t:"Today, practice catching yourself doing something right instead of something wrong.",c:"worth"},
+{id:133,t:"You are not a project to be fixed. You are a person to be experienced.",c:"worth"},
+{id:134,t:"The most radical thing you can do in this world is believe you are worthy of good things.",c:"worth"},
+{id:135,t:"Every scar is proof that you were stronger than what tried to hurt you.",c:"worth"},
+{id:136,t:"Self-worth is not earned through hustle. It's recognized through stillness.",c:"worth"},
+{id:137,t:"The fact that you keep trying — even when it's hard, even when you doubt — says everything about who you are.",c:"worth"},
+{id:138,t:"You are not an inconvenience. You are not a burden. You are a human being deserving of care.",c:"worth"},
+{id:139,t:"You don't need to know your purpose to have value. The search itself is meaningful.",c:"worth"},
+{id:140,t:"Asking for help doesn't diminish you. It proves you're wise enough to know your limits.",c:"worth"},
+{id:141,t:"Your best will look different every day. Some days, your best is just getting out of bed. That counts.",c:"worth"},
+{id:142,t:"Stop apologizing for being a human who has needs.",c:"worth"},
+{id:143,t:"You are not falling behind. You are moving at the pace your healing requires.",c:"worth"},
+{id:144,t:"There has never been, and will never be, another you. That alone makes you irreplaceable.",c:"worth"},
+{id:145,t:"Other people's success is not evidence of your failure. There is room for all of you.",c:"worth"},
+{id:146,t:"You are allowed to outgrow who you were and still honor that version of yourself.",c:"worth"},
+{id:147,t:"Saying no is a complete sentence. It does not require a footnote.",c:"worth"},
+{id:148,t:"Your value doesn't decrease based on someone's inability to see it.",c:"worth"},
+{id:149,t:"Self-doubt is noisy. Self-worth is quiet. Listen to the quieter voice.",c:"worth"},
+{id:150,t:"Stop shrinking so other people don't feel insecure. That's their work, not yours.",c:"worth"},
+{id:151,t:"You've done hard things before. You'll do hard things again. And you'll still be standing after.",c:"worth"},
+{id:152,t:"Not everyone will understand your path. That doesn't mean you're on the wrong one.",c:"worth"},
+{id:153,t:"Rest without guilt. Create without pressure. Exist without apology.",c:"worth"},
+{id:154,t:"You are not defined by the chapter you're in. You're defined by the whole book.",c:"worth"},
+{id:155,t:"Celebrate your small wins today. They're the foundation of your biggest ones.",c:"worth"},
+{id:156,t:"You are worthy of the same forgiveness you'd give someone you love.",c:"worth"},
+
+// PERSPECTIVE SHIFTS (perspective) — 52 messages
+{id:157,t:"A year from now, most of what stressed you today will be forgotten. Act from that future clarity.",c:"perspective"},
+{id:158,t:"You are the only person who has been present for every moment of your life. Trust that witness.",c:"perspective"},
+{id:159,t:"The oak tree doesn't rush to prove it's strong. It just keeps growing.",c:"perspective"},
+{id:160,t:"Most of your suffering comes from the story you tell about the pain, not the pain itself.",c:"perspective"},
+{id:161,t:"Every expert was once a beginner who refused to quit. You're earlier in the story than you think.",c:"perspective"},
+{id:162,t:"The obstacle is not in your way. It is the way.",c:"perspective"},
+{id:163,t:"You are not stuck. You are preparing. Even seeds spend time in the dark before they break through.",c:"perspective"},
+{id:164,t:"What if the difficult thing happening to you is actually happening for you?",c:"perspective"},
+{id:165,t:"Ten years ago, you would have been amazed at who you've become. Remember that perspective.",c:"perspective"},
+{id:166,t:"Discomfort is the currency of growth. You're not doing it wrong — you're just paying the price.",c:"perspective"},
+{id:167,t:"The map is not the territory. The plan is not the life. Stay flexible.",c:"perspective"},
+{id:168,t:"Your current situation is not your final destination. It's just today.",c:"perspective"},
+{id:169,t:"History is full of people who were underestimated. You're in good company.",c:"perspective"},
+{id:170,t:"The universe has been around for 13.8 billion years. Your bad day is a rounding error. This too shall pass.",c:"perspective"},
+{id:171,t:"Every locked door in your past was redirecting you to the one that was meant to open.",c:"perspective"},
+{id:172,t:"Comfort zones are where dreams go to nap. Wake them up gently.",c:"perspective"},
+{id:173,t:"The person you're becoming will cost you people, places, and things. The price is worth it.",c:"perspective"},
+{id:174,t:"What feels like failure is often just feedback in disguise. What is this teaching you?",c:"perspective"},
+{id:175,t:"You're closer than you think. The last mile of any journey always feels the longest.",c:"perspective"},
+{id:176,t:"If you could see the whole staircase, you'd never need faith. Take the next step anyway.",c:"perspective"},
+{id:177,t:"The things you own end up owning you. Simplify where you can.",c:"perspective"},
+{id:178,t:"Rejection is redirection. Every no is clearing the path for a better yes.",c:"perspective"},
+{id:179,t:"You're playing a long game in a world obsessed with short ones. That's an advantage, not a flaw.",c:"perspective"},
+{id:180,t:"The view from the mountain was built by the climb, not the helicopter ride.",c:"perspective"},
+{id:181,t:"Everyone you admire was once where you are now. The only difference is they kept going.",c:"perspective"},
+{id:182,t:"Today's struggle is tomorrow's strength. You're not falling apart — you're being restructured.",c:"perspective"},
+{id:183,t:"The darkest part of the night comes just before dawn. If you're in darkness, light is near.",c:"perspective"},
+{id:184,t:"Most great things in life were built by people who had every reason to quit but didn't.",c:"perspective"},
+{id:185,t:"You don't have to be fearless. You just have to be willing to move while afraid.",c:"perspective"},
+{id:186,t:"A diamond is just a rock that handled stress exceptionally well.",c:"perspective"},
+{id:187,t:"Nothing in nature blooms all year. Give yourself permission to have seasons.",c:"perspective"},
+{id:188,t:"The chapter you'd skip if you were reading someone else's story might be the one that defines yours.",c:"perspective"},
+{id:189,t:"When you change the way you look at things, the things you look at change.",c:"perspective"},
+{id:190,t:"You're not starting over. You're starting from experience. That's different.",c:"perspective"},
+{id:191,t:"What's one thing you're grateful happened that you once thought would ruin you?",c:"perspective"},
+{id:192,t:"Life is not happening to you. It's happening through you. What are you creating today?",c:"perspective"},
+{id:193,t:"The wound is the place where the light enters you.",c:"perspective"},
+{id:194,t:"You can't read the label from inside the jar. Sometimes you need distance to see clearly.",c:"perspective"},
+{id:195,t:"Resistance is usually a sign you're heading toward growth. Lean in.",c:"perspective"},
+{id:196,t:"The problem isn't that life is unfair. It's that we expect it to be.",c:"perspective"},
+{id:197,t:"Everything around you was once someone's impossible idea. Your dreams aren't as wild as they seem.",c:"perspective"},
+{id:198,t:"The same boiling water that softens the potato hardens the egg. It's about what you're made of.",c:"perspective"},
+{id:199,t:"Zoom out. In the story of your life, this is one paragraph. Make it a good transition.",c:"perspective"},
+{id:200,t:"The strongest steel is forged in the hottest fire. You're being tempered, not destroyed.",c:"perspective"},
+{id:201,t:"You don't need all the answers today. Just the courage to show up tomorrow.",c:"perspective"},
+{id:202,t:"The river doesn't know where the ocean is. It just keeps flowing. Trust your direction.",c:"perspective"},
+{id:203,t:"What you resist persists. What you accept transforms.",c:"perspective"},
+{id:204,t:"Your critics are not your audience. Stop performing for people who weren't going to clap anyway.",c:"perspective"},
+{id:205,t:"Life rewards the specific. Get clear on what you want, not just what you're afraid of.",c:"perspective"},
+{id:206,t:"Every master was once a disaster. Every expert was once clumsy. You're on track.",c:"perspective"},
+{id:207,t:"The space between who you are and who you want to be is called growth. Respect the gap.",c:"perspective"},
+{id:208,t:"Stars can't shine without darkness. Your difficult moments are part of your light.",c:"perspective"},
+
+// GRATITUDE & PRESENCE (gratitude) — 52 messages
+{id:209,t:"Before you scroll, pause. Name one good thing that happened today. Hold it for three seconds.",c:"gratitude"},
+{id:210,t:"You woke up today. Millions didn't. That alone is worth a quiet moment of thanks.",c:"gratitude"},
+{id:211,t:"Right now, someone somewhere is praying for what you take for granted.",c:"gratitude"},
+{id:212,t:"Feel the weight of your body in this chair. Notice your breath. You are alive. Start there.",c:"gratitude"},
+{id:213,t:"What if today is one of the good old days you'll be nostalgic for later?",c:"gratitude"},
+{id:214,t:"Notice the temperature of the air on your skin right now. That's the present moment saying hello.",c:"gratitude"},
+{id:215,t:"Somewhere in the world, the exact life you're living is someone else's dream.",c:"gratitude"},
+{id:216,t:"The ordinary moments you rush through are the ones you'll miss most someday. Slow down.",c:"gratitude"},
+{id:217,t:"Your heart has beaten roughly 2.5 billion times to keep you here. Honor it with a grateful breath.",c:"gratitude"},
+{id:218,t:"What's one thing that went right yesterday? Let that matter more than what went wrong.",c:"gratitude"},
+{id:219,t:"Look around you. Something in your immediate view was someone's labor of love. Appreciate it.",c:"gratitude"},
+{id:220,t:"Gratitude doesn't ignore the hard things. It makes room for the good things alongside them.",c:"gratitude"},
+{id:221,t:"The hot coffee, the warm bed, the person who texted back. Small gifts. Notice them.",c:"gratitude"},
+{id:222,t:"If today were your last day, what would you suddenly be grateful for? Go be grateful for it now.",c:"gratitude"},
+{id:223,t:"You are surrounded by miracles disguised as ordinary moments. Pay attention.",c:"gratitude"},
+{id:224,t:"Think of someone who helped you become who you are. Send them a quiet thank you from your heart.",c:"gratitude"},
+{id:225,t:"The ability to read these words, to think about them, to feel something — none of it is guaranteed.",c:"gratitude"},
+{id:226,t:"What if joy is not something you chase, but something you notice?",c:"gratitude"},
+{id:227,t:"Your body carried you through another night of sleep and repair. It's working for you. Thank it.",c:"gratitude"},
+{id:228,t:"Somewhere, right now, a stranger did something kind for no reason. That's the world you live in.",c:"gratitude"},
+{id:229,t:"Notice five things you can see, four you can touch, three you can hear, two you can smell, one you can taste. Welcome back.",c:"gratitude"},
+{id:230,t:"You have survived heartbreak, uncertainty, and fear. And you're still open enough to read this. That's remarkable.",c:"gratitude"},
+{id:231,t:"The sunset doesn't wait for an audience. It just happens beautifully. Some gifts don't require witnesses.",c:"gratitude"},
+{id:232,t:"Today you have enough. You are enough. This moment is enough. Breathe into that.",c:"gratitude"},
+{id:233,t:"The people in your life who show up consistently — even in small ways — are treasures. Tell them.",c:"gratitude"},
+{id:234,t:"Your past self did something right to get you here. Acknowledge that person kindly.",c:"gratitude"},
+{id:235,t:"Presence is the most generous gift you can give anyone — including yourself.",c:"gratitude"},
+{id:236,t:"Clean water. Shelter. The ability to feel. We forget how miraculous the basics are.",c:"gratitude"},
+{id:237,t:"Close your eyes and listen. What do you hear? That's the soundtrack of being alive.",c:"gratitude"},
+{id:238,t:"Gratitude is not about having more. It's about recognizing what's already here.",c:"gratitude"},
+{id:239,t:"The small pleasures — sunlight on your face, a song you love, the laugh of someone you care about — are the big ones.",c:"gratitude"},
+{id:240,t:"Today, let good enough be good enough.",c:"gratitude"},
+{id:241,t:"Your life contains chapters you haven't written yet. Be grateful for the blank pages.",c:"gratitude"},
+{id:242,t:"Think of the last time you laughed — really laughed. That feeling is still accessible. It lives in you.",c:"gratitude"},
+{id:243,t:"The meal you'll eat today nourished a plant, traveled miles, and was prepared by human hands. That's astonishing.",c:"gratitude"},
+{id:244,t:"You didn't get here alone. Invisible kindnesses carried you. Pass them on.",c:"gratitude"},
+{id:245,t:"Right now, you are breathing. That's not small. That's everything.",c:"gratitude"},
+{id:246,t:"Take one photo today of something beautiful and ordinary. Train your eye to see abundance.",c:"gratitude"},
+{id:247,t:"Every dawn is an invitation to begin again. Today's is addressed to you.",c:"gratitude"},
+{id:248,t:"The best moments in life are rarely the ones you plan. Stay open to the unscripted.",c:"gratitude"},
+{id:249,t:"Somewhere, someone remembers a kind thing you did that you've already forgotten. Your impact is bigger than you know.",c:"gratitude"},
+{id:250,t:"Put your hand over your heart. Feel the rhythm. That's the most loyal companion you've ever had.",c:"gratitude"},
+{id:251,t:"Look at your hands. They've built things, held people, wiped away tears. They deserve appreciation.",c:"gratitude"},
+{id:252,t:"There are conversations waiting for you, meals you haven't tasted, places that will take your breath away. Stay curious.",c:"gratitude"},
+{id:253,t:"The gravity holding you to this earth is the universe saying: you belong here.",c:"gratitude"},
+{id:254,t:"Gratitude rewires your brain. Each time you practice it, you're literally building a calmer mind.",c:"gratitude"},
+{id:255,t:"Today is a gift. It's imperfect, messy, and uncertain — and it's still a gift.",c:"gratitude"},
+{id:256,t:"Someone loves you more than you know. Let that sink in.",c:"gratitude"},
+{id:257,t:"The fact that flowers grow through concrete should tell you everything about your ability to bloom.",c:"gratitude"},
+{id:258,t:"Before your feet hit the floor tomorrow morning, think of three things worth waking up for.",c:"gratitude"},
+{id:259,t:"This moment — right here, right now — is the one you'll never get back. Be here for it.",c:"gratitude"},
+{id:260,t:"You are witnessing your own life. Don't forget to enjoy the view.",c:"gratitude"}
+];
+
+const CAT_LABELS={peace:"Inner Peace",mastery:"Emotional Mastery",worth:"Self-Worth",perspective:"Perspective",gratitude:"Gratitude"};
+const CAT_COLORS={peace:"#7aa3b8",mastery:"#8b8aac",worth:"#c28b8b",perspective:"#c4a265",gratitude:"#7c9a8e"};
+const MOODS=[
+  {key:"calm",emoji:"😌",label:"Calm",score:5,color:"#7c9a8e"},
+  {key:"anxious",emoji:"😰",label:"Anxious",score:2,color:"#8b8aac"},
+  {key:"frustrated",emoji:"😤",label:"Frustrated",score:2,color:"#c28b8b"},
+  {key:"low",emoji:"😔",label:"Low",score:1,color:"#6e6d82"},
+  {key:"neutral",emoji:"😐",label:"Neutral",score:3,color:"#a8a5b8"},
+  {key:"grateful",emoji:"🙏",label:"Grateful",score:5,color:"#c4a265"},
+  {key:"hopeful",emoji:"✨",label:"Hopeful",score:4,color:"#7aa3b8"}
+];
+
+// ============================================
+// APP STATE & PERSISTENCE
+// ============================================
+const LS={
+  get(k,d){try{const v=localStorage.getItem('ia_'+k);return v?JSON.parse(v):d}catch{return d}},
+  set(k,v){try{localStorage.setItem('ia_'+k,JSON.stringify(v))}catch{}}
+};
+
+let state={
+  currentView:'home',
+  currentMsgIdx:0,
+  favorites:LS.get('favorites',[]),
+  mantras:LS.get('mantras',[]),
+  journal:LS.get('journal',[]),
+  streak:LS.get('streak',{count:0,lastDate:null}),
+  settings:LS.get('settings',{
+    morningShield:true,morningStart:'07:00',morningEnd:'09:00',
+    darkMode:false,notifications:false,
+    cat_peace:true,cat_mastery:true,cat_worth:true,cat_perspective:true,cat_gratitude:true
+  }),
+  onboarded:LS.get('onboarded',false),
+  selectedMood:null,
+  breathActive:false,
+  seenIds:LS.get('seenIds',[])
+};
+
+function save(){
+  LS.set('favorites',state.favorites);
+  LS.set('mantras',state.mantras);
+  LS.set('journal',state.journal);
+  LS.set('streak',state.streak);
+  LS.set('settings',state.settings);
+  LS.set('seenIds',state.seenIds);
+}
+
+// ============================================
+// HELPERS
+// ============================================
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function wrapText(ctx,text,maxWidth){
+  const words=text.split(' ');
+  const lines=[];
+  let line='';
+  for(const word of words){
+    const test=line?line+' '+word:word;
+    if(ctx.measureText(test).width>maxWidth&&line){
+      lines.push(line);
+      line=word;
+    }else{
+      line=test;
+    }
+  }
+  if(line)lines.push(line);
+  return lines;
+}
+
+function drawAnchorIcon(ctx,x,y,color){
+  ctx.save();
+  ctx.strokeStyle=color;ctx.fillStyle=color;
+  ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
+  // Ring at top
+  ctx.beginPath();ctx.arc(x,y-18,6,0,Math.PI*2);ctx.stroke();
+  // Vertical shaft
+  ctx.beginPath();ctx.moveTo(x,y-12);ctx.lineTo(x,y+14);ctx.stroke();
+  // Cross bar
+  ctx.beginPath();ctx.moveTo(x-10,y-4);ctx.lineTo(x+10,y-4);ctx.stroke();
+  // Curved flukes at bottom
+  ctx.beginPath();ctx.moveTo(x-14,y+2);ctx.quadraticCurveTo(x-14,y+16,x,y+14);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(x+14,y+2);ctx.quadraticCurveTo(x+14,y+16,x,y+14);ctx.stroke();
+  // Small dot at top of ring
+  ctx.beginPath();ctx.arc(x,y-24,2.5,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+
+async function generateShareCard(msg){
+  const W=1080,H=1350;
+  const canvas=document.createElement('canvas');
+  canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+
+  // Background — navy gradient
+  const bg=ctx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,'#1a1f3d');bg.addColorStop(1,'#141729');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+  // Subtle radial glow center
+  const glow=ctx.createRadialGradient(W/2,H*0.42,0,W/2,H*0.42,W*0.6);
+  glow.addColorStop(0,'rgba(124,154,142,0.06)');glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+
+  const accent=CAT_COLORS[msg.c]||'#7c9a8e';
+
+  // Accent line
+  const lineY=H*0.22;
+  ctx.strokeStyle=accent;ctx.lineWidth=2;ctx.globalAlpha=0.5;
+  ctx.beginPath();ctx.moveTo(W*0.3,lineY);ctx.lineTo(W*0.7,lineY);ctx.stroke();
+  ctx.globalAlpha=1;
+
+  // Quote text — adaptive font size
+  const quoteText='"'+msg.t+'"';
+  const len=quoteText.length;
+  const fontSize=len>180?38:len>120?42:len>80?48:54;
+  const lineHeight=fontSize*1.55;
+  const maxTextWidth=W-180;
+
+  ctx.font=`italic 300 ${fontSize}px Fraunces, Georgia, serif`;
+  ctx.fillStyle='#f5f0e8';
+  ctx.textAlign='center';
+  ctx.textBaseline='top';
+
+  const lines=wrapText(ctx,quoteText,maxTextWidth);
+  const totalTextHeight=lines.length*lineHeight;
+  const textStartY=H*0.32-(totalTextHeight>H*0.32?totalTextHeight*0.1:0);
+
+  lines.forEach((line,i)=>{
+    ctx.fillText(line,W/2,textStartY+i*lineHeight);
+  });
+
+  // Category label
+  const catY=textStartY+totalTextHeight+50;
+  ctx.font='600 22px "DM Sans", system-ui, sans-serif';
+  ctx.fillStyle=accent;
+  ctx.letterSpacing='4px';
+  const catText=(CAT_LABELS[msg.c]||'').toUpperCase();
+  ctx.fillText(catText,W/2,catY);
+
+  // Anchor icon + branding at bottom
+  const brandY=H-160;
+  drawAnchorIcon(ctx,W/2,brandY,'rgba(245,240,232,0.25)');
+
+  ctx.font='400 20px "DM Sans", system-ui, sans-serif';
+  ctx.fillStyle='rgba(245,240,232,0.3)';
+  ctx.fillText('Inner Anchor',W/2,brandY+40);
+
+  // Convert to blob
+  return new Promise(resolve=>{
+    canvas.toBlob(blob=>resolve(blob),'image/png');
+  });
+}
+
+function downloadBlob(blob,filename){
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=filename;
+  document.body.appendChild(a);a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),5000);
+}
+
+function getGreeting(){
+  const h=new Date().getHours();
+  if(h<12)return'Good morning';if(h<17)return'Good afternoon';return'Good evening';
+}
+
+function isMorningWindow(){
+  if(!state.settings.morningShield)return false;
+  const now=new Date();
+  const [sh,sm]=state.settings.morningStart.split(':').map(Number);
+  const [eh,em]=state.settings.morningEnd.split(':').map(Number);
+  const mins=now.getHours()*60+now.getMinutes();
+  return mins>=sh*60+sm && mins<=eh*60+em;
+}
+
+function getActiveMessages(){
+  return MESSAGES.filter(m=>state.settings['cat_'+m.c]!==false);
+}
+
+function getRandomMessage(){
+  const active=getActiveMessages();
+  if(!active.length)return MESSAGES[0];
+  const unseen=active.filter(m=>!state.seenIds.includes(m.id));
+  const pool=unseen.length>0?unseen:active;
+  if(unseen.length===0)state.seenIds=[];
+  const msg=pool[Math.floor(Math.random()*pool.length)];
+  state.seenIds.push(msg.id);
+  if(state.seenIds.length>200)state.seenIds=state.seenIds.slice(-100);
+  LS.set('seenIds',state.seenIds);
+  return msg;
+}
+
+function updateStreak(){
+  const today=new Date().toDateString();
+  if(state.streak.lastDate===today)return;
+  const yesterday=new Date(Date.now()-86400000).toDateString();
+  if(state.streak.lastDate===yesterday){
+    state.streak.count++;
+  }else if(state.streak.lastDate!==today){
+    state.streak.count=1;
+  }
+  state.streak.lastDate=today;
+  save();
+}
+
+function formatDate(d){
+  const dt=new Date(d);
+  const opts={weekday:'short',month:'short',day:'numeric'};
+  return dt.toLocaleDateString('en-US',opts);
+}
+
+function formatTime(d){
+  const dt=new Date(d);
+  return dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+function navigate(view){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('view-'+view).classList.add('active');
+  document.querySelector(`.nav-btn[data-view="${view}"]`).classList.add('active');
+  state.currentView=view;
+  window.scrollTo(0,0);
+  if(view==='home')renderHome();
+  if(view==='journal')renderJournal();
+  if(view==='library')renderLibrary();
+  if(view==='settings')renderSettings();
+  if(view==='breathe')resetBreathing();
+}
+
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>navigate(btn.dataset.view));
+});
+
+// ============================================
+// HOME VIEW
+// ============================================
+let currentMsg=null;
+
+function renderHome(){
+  document.getElementById('greeting').textContent=getGreeting();
+  const badge=document.getElementById('morning-badge');
+  badge.style.display=isMorningWindow()?'inline-flex':'none';
+  if(!currentMsg)currentMsg=getRandomMessage();
+  const el=document.getElementById('featured-msg');
+  el.textContent='"'+currentMsg.t+'"';
+  el.style.animation='none';el.offsetHeight;el.style.animation='messageIn .8s .1s ease forwards';
+  document.getElementById('featured-cat').textContent=CAT_LABELS[currentMsg.c];
+  updateHeartBtn();
+}
+
+function updateHeartBtn(){
+  const btn=document.getElementById('home-heart');
+  btn.classList.toggle('hearted',currentMsg&&state.favorites.includes(currentMsg.id));
+}
+
+document.getElementById('home-next').addEventListener('click',()=>{
+  currentMsg=getRandomMessage();renderHome();
+});
+
+document.getElementById('home-heart').addEventListener('click',()=>{
+  if(!currentMsg)return;
+  const idx=state.favorites.indexOf(currentMsg.id);
+  if(idx>-1){state.favorites.splice(idx,1);toast('Removed from favorites')}
+  else{state.favorites.push(currentMsg.id);toast('Saved to favorites ♡')}
+  save();updateHeartBtn();
+});
+
+document.getElementById('home-share').addEventListener('click',async()=>{
+  if(!currentMsg)return;
+  const btn=document.getElementById('home-share');
+  btn.style.pointerEvents='none';btn.style.opacity='0.5';
+  toast('Creating share image…');
+  const text=currentMsg.t+'\n\n— Inner Anchor';
+  try{
+    const blob=await generateShareCard(currentMsg);
+    const file=new File([blob],'inner-anchor-quote.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({files:[file],text});
+    }else if(navigator.share){
+      downloadBlob(blob,'inner-anchor-quote.png');
+      toast('Image saved!');
+      try{await navigator.share({text})}catch{}
+    }else{
+      downloadBlob(blob,'inner-anchor-quote.png');
+      try{await navigator.clipboard.writeText(text);toast('Image saved & text copied!')}catch{toast('Image saved!')}
+    }
+  }catch(e){
+    // Canvas failed — fall back to plain text sharing
+    if(navigator.share){
+      try{await navigator.share({text})}catch{}
+    }else{
+      try{await navigator.clipboard.writeText(text);toast('Copied to clipboard')}catch{toast('Could not copy')}
+    }
+  }finally{
+    btn.style.pointerEvents='';btn.style.opacity='';
+  }
+});
+
+// ============================================
+// BREATHING EXERCISES
+// ============================================
+const EXERCISES={
+  '478':{name:'4-7-8 Calm',phases:[{label:'Inhale',dur:4,cls:'inhale'},{label:'Hold',dur:7,cls:'hold'},{label:'Exhale',dur:8,cls:'exhale'}]},
+  'box':{name:'Box Breathing',phases:[{label:'Inhale',dur:4,cls:'inhale'},{label:'Hold',dur:4,cls:'hold'},{label:'Exhale',dur:4,cls:'exhale'},{label:'Hold',dur:4,cls:'hold'}]},
+  '55':{name:'Equal Breathing',phases:[{label:'Inhale',dur:5,cls:'inhale'},{label:'Exhale',dur:5,cls:'exhale'}]}
+};
+
+let breathState={exercise:null,running:false,timer:null,phase:0,count:0,sec:0,totalCycles:0};
+
+function resetBreathing(){
+  stopBreathing();
+  document.getElementById('breathe-select').style.display='block';
+  document.getElementById('breathe-arena').classList.remove('active');
+  document.querySelectorAll('.exercise-card').forEach(c=>c.classList.remove('selected'));
+}
+
+document.querySelectorAll('.exercise-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const key=card.dataset.exercise;
+    breathState.exercise=EXERCISES[key];
+    document.querySelectorAll('.exercise-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.getElementById('breathe-select').style.display='none';
+    document.getElementById('breathe-arena').classList.add('active');
+    document.getElementById('breath-label').textContent='Ready';
+    document.getElementById('breath-timer').textContent='';
+    document.getElementById('breath-cycles').textContent='Tap Start when you\'re ready';
+    document.getElementById('breath-circle').className='breath-circle';
+    document.getElementById('breath-start').textContent='Start';
+    breathState.running=false;
+  });
+});
+
+document.getElementById('breath-start').addEventListener('click',()=>{
+  if(breathState.running){
+    stopBreathing();
+    document.getElementById('breath-start').textContent='Start';
+    document.getElementById('breath-label').textContent='Paused';
+    return;
+  }
+  breathState.running=true;breathState.phase=0;breathState.count=0;breathState.sec=0;breathState.totalCycles=0;
+  document.getElementById('breath-start').textContent='Pause';
+  runPhase();
+});
+
+document.getElementById('breath-stop').addEventListener('click',()=>{
+  stopBreathing();
+  resetBreathing();
+});
+
+function runPhase(){
+  if(!breathState.running||!breathState.exercise)return;
+  const phases=breathState.exercise.phases;
+  const p=phases[breathState.phase%phases.length];
+  const circle=document.getElementById('breath-circle');
+  circle.className='breath-circle '+p.cls;
+  // Set transition duration to match phase
+  circle.style.transitionDuration=p.dur+'s';
+  circle.querySelector('.breath-inner').style.transitionDuration=p.dur+'s';
+  document.getElementById('breath-label').textContent=p.label;
+  breathState.sec=p.dur;
+  document.getElementById('breath-timer').textContent=breathState.sec;
+  // Haptic on phase change
+  if(navigator.vibrate)navigator.vibrate(p.cls==='hold'?[50]:[100]);
+  breathState.timer=setInterval(()=>{
+    breathState.sec--;
+    document.getElementById('breath-timer').textContent=Math.max(0,breathState.sec);
+    if(breathState.sec<=0){
+      clearInterval(breathState.timer);
+      breathState.phase++;
+      if(breathState.phase%phases.length===0){
+        breathState.totalCycles++;
+        document.getElementById('breath-cycles').textContent='Cycle '+breathState.totalCycles+' complete';
+      }
+      runPhase();
+    }
+  },1000);
+}
+
+function stopBreathing(){
+  breathState.running=false;
+  if(breathState.timer)clearInterval(breathState.timer);
+}
+
+// ============================================
+// JOURNAL
+// ============================================
+function renderJournal(){
+  state.selectedMood=null;
+  document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('journal-text').value='';
+  document.getElementById('char-count').textContent='0';
+  renderMoodChart();
+  renderJournalEntries();
+}
+
+document.querySelectorAll('.mood-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.mood-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+    state.selectedMood=btn.dataset.mood;
+  });
+});
+
+document.getElementById('journal-text').addEventListener('input',e=>{
+  document.getElementById('char-count').textContent=e.target.value.length;
+});
+
+document.getElementById('journal-save').addEventListener('click',()=>{
+  if(!state.selectedMood){toast('Pick a mood first');return}
+  const entry={
+    id:Date.now(),mood:state.selectedMood,
+    text:document.getElementById('journal-text').value.trim(),
+    date:new Date().toISOString()
+  };
+  state.journal.unshift(entry);
+  if(state.journal.length>365)state.journal=state.journal.slice(0,365);
+  save();
+  toast('Entry saved ✓');
+  renderJournal();
+});
+
+function renderMoodChart(){
+  const chart=document.getElementById('mood-chart');
+  chart.innerHTML='';
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const now=new Date();
+  for(let i=6;i>=0;i--){
+    const d=new Date(now);d.setDate(d.getDate()-i);
+    const dayStr=d.toDateString();
+    const entries=state.journal.filter(e=>new Date(e.date).toDateString()===dayStr);
+    const wrap=document.createElement('div');wrap.className='chart-bar-wrap';
+    const bar=document.createElement('div');bar.className='chart-bar';
+    if(entries.length>0){
+      const mood=MOODS.find(m=>m.key===entries[0].mood);
+      const h=mood?mood.score*16:20;
+      bar.style.height=h+'px';
+      bar.style.background=mood?mood.color:'var(--sage)';
+      bar.title=mood?mood.label:'';
+    }else{
+      bar.style.height='4px';bar.style.opacity='.2';
+    }
+    const label=document.createElement('div');label.className='chart-day';
+    label.textContent=i===0?'Today':days[d.getDay()];
+    wrap.appendChild(bar);wrap.appendChild(label);chart.appendChild(wrap);
+  }
+}
+
+function renderJournalEntries(){
+  const el=document.getElementById('journal-entries');
+  const entries=state.journal.slice(0,20);
+  if(!entries.length){
+    el.innerHTML='<div class="empty-state"><div class="empty-icon">📖</div>No entries yet. Check in with yourself above.</div>';
+    return;
+  }
+  el.innerHTML=entries.map(e=>{
+    const mood=MOODS.find(m=>m.key===e.mood);
+    return `<div class="journal-entry">
+      <div class="entry-header">
+        <span class="entry-date">${formatDate(e.date)} · ${formatTime(e.date)}</span>
+        <span class="entry-mood">${mood?mood.emoji:'😐'}</span>
+      </div>
+      ${e.text?`<div class="entry-text">${escHtml(e.text)}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+// ============================================
+// LIBRARY
+// ============================================
+let libFilter='all';
+
+function renderLibrary(){
+  renderMessages();
+  renderMantras();
+}
+
+document.getElementById('cat-tabs').addEventListener('click',e=>{
+  const tab=e.target.closest('.cat-tab');
+  if(!tab)return;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  libFilter=tab.dataset.cat;
+  renderMessages();
+});
+
+function renderMessages(){
+  const el=document.getElementById('message-list');
+  let msgs;
+  if(libFilter==='favorites'){
+    msgs=MESSAGES.filter(m=>state.favorites.includes(m.id));
+    if(!msgs.length){
+      el.innerHTML='<div class="empty-state"><div class="empty-icon">♡</div>No favorites yet. Tap the heart on any message to save it here.</div>';
+      return;
+    }
+  }else if(libFilter==='all'){
+    msgs=getActiveMessages();
+  }else{
+    msgs=MESSAGES.filter(m=>m.c===libFilter&&state.settings['cat_'+m.c]!==false);
+  }
+  // Show 30 at a time for performance
+  const display=msgs.slice(0,30);
+  el.innerHTML=display.map(m=>{
+    const isFav=state.favorites.includes(m.id);
+    return `<div class="message-card">
+      <div class="message-text">"${escHtml(m.t)}"</div>
+      <div class="message-cat">${CAT_LABELS[m.c]}</div>
+      <button class="fav-btn ${isFav?'hearted':''}" data-id="${m.id}">
+        <svg viewBox="0 0 24 24" fill="${isFav?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>`;
+  }).join('')+(msgs.length>30?`<div class="empty-state" style="padding:20px">${msgs.length-30} more messages. Scroll through categories to explore.</div>`:'');
+}
+
+document.getElementById('message-list').addEventListener('click',e=>{
+  const btn=e.target.closest('.fav-btn');
+  if(!btn)return;
+  const id=parseInt(btn.dataset.id);
+  const idx=state.favorites.indexOf(id);
+  if(idx>-1){state.favorites.splice(idx,1)}else{state.favorites.push(id)}
+  save();renderMessages();
+});
+
+// Mantras
+function renderMantras(){
+  const el=document.getElementById('mantra-list');
+  if(!state.mantras.length){
+    el.innerHTML='<div class="empty-state" style="padding:16px">Your personal mantras will appear here.</div>';
+    return;
+  }
+  el.innerHTML=state.mantras.map((m,i)=>`
+    <div class="mantra-item">
+      <span>"${escHtml(m)}"</span>
+      <button class="mantra-del" data-idx="${i}">×</button>
+    </div>
+  `).join('');
+}
+
+document.getElementById('mantra-add').addEventListener('click',()=>{
+  const input=document.getElementById('mantra-input');
+  const val=input.value.trim();
+  if(!val){toast('Write something first');return}
+  if(state.mantras.length>=20){toast('Maximum 20 mantras');return}
+  state.mantras.push(val);input.value='';save();renderMantras();
+  toast('Mantra added ✓');
+});
+
+document.getElementById('mantra-list').addEventListener('click',e=>{
+  const btn=e.target.closest('.mantra-del');
+  if(!btn)return;
+  state.mantras.splice(parseInt(btn.dataset.idx),1);
+  save();renderMantras();
+});
+
+// ============================================
+// SETTINGS
+// ============================================
+function renderSettings(){
+  const s=state.settings;
+  // Toggles
+  document.querySelectorAll('.toggle[data-key]').forEach(t=>{
+    t.classList.toggle('on',!!s[t.dataset.key]);
+  });
+  document.getElementById('morning-start').value=s.morningStart;
+  document.getElementById('morning-end').value=s.morningEnd;
+  // Streak
+  const streakEl=document.getElementById('streak-display');
+  const icon=document.getElementById('streak-icon');
+  const c=state.streak.count;
+  streakEl.textContent=c===0?'Start your practice today':c+' day'+(c>1?'s':'');
+  icon.textContent=c===0?'🌱':c<7?'🌿':c<30?'🌳':'🏔️';
+  // Notifications
+  const ns=document.getElementById('notif-status');
+  const nt=document.getElementById('toggle-notif');
+  if('Notification' in window){
+    const perm=Notification.permission;
+    ns.textContent=perm==='granted'?'Enabled':perm==='denied'?'Blocked by browser':'Tap to enable';
+    nt.classList.toggle('on',perm==='granted');
+  }else{
+    ns.textContent='Not supported on this device';
+  }
+}
+
+// Toggle handlers
+document.querySelectorAll('.toggle[data-key]').forEach(t=>{
+  t.addEventListener('click',()=>{
+    const key=t.dataset.key;
+    state.settings[key]=!state.settings[key];
+    t.classList.toggle('on',state.settings[key]);
+    if(key==='darkMode')applyTheme();
+    save();
+  });
+});
+
+document.getElementById('toggle-notif').addEventListener('click',async()=>{
+  if(!('Notification' in window)){toast('Notifications not supported');return}
+  if(Notification.permission==='denied'){toast('Notifications blocked. Enable in browser settings.');return}
+  const perm=await Notification.requestPermission();
+  if(perm==='granted'){
+    state.settings.notifications=true;save();
+    toast('Notifications enabled ✓');
+    scheduleNotifications();
+  }
+  renderSettings();
+});
+
+document.getElementById('morning-start').addEventListener('change',e=>{
+  state.settings.morningStart=e.target.value;save();
+});
+document.getElementById('morning-end').addEventListener('change',e=>{
+  state.settings.morningEnd=e.target.value;save();
+});
+
+document.getElementById('export-btn').addEventListener('click',()=>{
+  if(!state.journal.length){toast('No entries to export');return}
+  let text='INNER ANCHOR — Journal Export\n'+new Date().toLocaleDateString()+'\n\n';
+  state.journal.forEach(e=>{
+    const mood=MOODS.find(m=>m.key===e.mood);
+    text+=`${formatDate(e.date)} ${formatTime(e.date)} — ${mood?mood.label:'Unknown'}\n`;
+    if(e.text)text+=e.text+'\n';
+    text+='\n';
+  });
+  const blob=new Blob([text],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='inner-anchor-journal.txt';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Journal exported ✓');
+});
+
+// ============================================
+// NOTIFICATIONS
+// ============================================
+function scheduleNotifications(){
+  if(!('serviceWorker' in navigator)||Notification.permission!=='granted')return;
+  navigator.serviceWorker.ready.then(reg=>{
+    // Schedule a few messages throughout the day
+    const now=new Date();
+    const times=isMorningWindow()?[15,30,45,60,90]:[60,120,180,240];
+    times.forEach(mins=>{
+      const msg=getRandomMessage();
+      reg.active.postMessage({
+        type:'SCHEDULE_NOTIFICATION',
+        title:'Inner Anchor',
+        body:msg.t,
+        delay:mins*60*1000
+      });
+    });
+  });
+}
+
+// ============================================
+// THEME
+// ============================================
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',state.settings.darkMode?'dark':'light');
+  document.querySelector('meta[name="theme-color"]').content=state.settings.darkMode?'#121420':'#1a1f3d';
+}
+
+// ============================================
+// ONBOARDING
+// ============================================
+document.getElementById('onboard-start').addEventListener('click',()=>{
+  state.onboarded=true;LS.set('onboarded',true);
+  document.getElementById('onboarding').classList.add('hidden');
+});
+
+document.getElementById('onboard-notify').addEventListener('click',async()=>{
+  if('Notification' in window){
+    const perm=await Notification.requestPermission();
+    if(perm==='granted'){
+      state.settings.notifications=true;save();
+      toast('Notifications enabled ✓');
+      scheduleNotifications();
+    }
+  }
+  state.onboarded=true;LS.set('onboarded',true);
+  document.getElementById('onboarding').classList.add('hidden');
+});
+
+// ============================================
+// INIT
+// ============================================
+function init(){
+  applyTheme();
+  if(state.onboarded)document.getElementById('onboarding').classList.add('hidden');
+  updateStreak();
+  currentMsg=getRandomMessage();
+  renderHome();
+  // Register SW
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  }
+  // Schedule notifications if enabled
+  if(state.settings.notifications)scheduleNotifications();
+  // Welcome back streak message
+  if(state.onboarded&&state.streak.count===1&&state.streak.lastDate===new Date().toDateString()){
+    // Fresh start or returned after break
+  }
+}
+
+init();
+</script>
+</body>
+</html>
