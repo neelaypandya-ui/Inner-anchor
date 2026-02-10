@@ -1,6 +1,6 @@
 # Inner Anchor
 
-# App available at: https://inner-anchor.netlify.app/
+App available at: https://inner-anchor.netlify.app/
 
 # ---
 
