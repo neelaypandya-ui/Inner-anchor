@@ -5,9 +5,6 @@ App available at: https://inner-anchor.netlify.app/
 **A wellness companion for anxiety, emotional mastery, and self-worth.**
 
 Inner Anchor delivers thought-provoking messages, guided breathing exercises, and gentle mood tracking — designed especially for high-cortisol mornings when your phone should be a source of calm, not stress.
-
-🔗 **Live App:** [grand-gaufre-f76ade.netlify.app](https://grand-gaufre-f76ade.netlify.app/)
-
 ---
 
 ## Features
