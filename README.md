@@ -2,95 +2,162 @@
 
 App available at: https://inner-anchor.netlify.app/
 
-# ---
+**A wellness companion for anxiety, emotional mastery, and self-worth.**
 
-# Inner Anchor — Deployment Guide
+Inner Anchor delivers thought-provoking messages, guided breathing exercises, and gentle mood tracking — designed especially for high-cortisol mornings when your phone should be a source of calm, not stress.
 
-## Deploy for Free in 5 Minutes (From Your Phone)
-
-### Option 1: Netlify (Recommended — Easiest)
-
-1. **Go to** [github.com](https://github.com) and create a new repository called `inner-anchor`
-2. **Upload all 4 files** to the repository:
-   - `index.html`
-   - `sw.js`
-   - `manifest.json`
-   - `netlify.toml`
-3. **Go to** [app.netlify.com](https://app.netlify.com) and sign up with your GitHub account
-4. Click **"Add new site" → "Import an existing project"**
-5. Select your `inner-anchor` repo
-6. Click **"Deploy"** — that's it
-7. Netlify gives you a URL like `inner-anchor-abc123.netlify.app`
-8. You can set a custom domain later in Site Settings → Domain Management
-
-### Option 2: Vercel
-
-1. Upload files to a GitHub repo (same as above)
-2. Go to [vercel.com](https://vercel.com), sign up with GitHub
-3. Click **"New Project"** → select your repo → Deploy
-4. Done. You get a URL like `inner-anchor.vercel.app`
-
-### Option 3: GitHub Pages (No Signup Beyond GitHub)
-
-1. Create repo called `inner-anchor`
-2. Upload all files
-3. Go to **Settings → Pages → Source: Deploy from a branch → Main → Save**
-4. Your app will be live at `yourusername.github.io/inner-anchor`
+🔗 **Live App:** [grand-gaufre-f76ade.netlify.app](https://grand-gaufre-f76ade.netlify.app/)
 
 ---
 
-## Installing on iPhone
+## Features
 
-Once deployed, the app works as a PWA (Progressive Web App):
+### 💬 380+ Curated Messages
+Thought-provoking reflections across eight categories — written to feel like a wise mentor, not a motivational poster.
+- **Inner Peace** — Grounding messages for anxiety
+- **Emotional Mastery** — Patience and anger management
+- **Self-Worth** — Rebuilding self-esteem and identity
+- **Perspective Shifts** — Stoic-inspired reframes
+- **Gratitude & Presence** — Mindfulness prompts
+- **Overcoming Fear** — Courage and stepping into the unknown
+- **Protecting Family** — Strength, legacy, and being present for those you love
+- **Rig Veda Wisdom** — Ancient Vedic insights on truth, creation, and the sacred self
 
-1. **Open** your deployed URL in Safari
-2. **Tap the Share button** (square with arrow pointing up)
-3. **Scroll down** and tap **"Add to Home Screen"**
-4. **Name it** "Inner Anchor" and tap Add
-5. The app now appears on your home screen with its own icon
-6. It launches fullscreen — no browser bar, feels like a native app
+Messages rotate intelligently so you rarely see repeats.
+
+### 🛡️ Morning Shield Mode
+Configurable high-cortisol window (default 7–9 AM EST) that delivers more frequent messages and transforms your first phone interaction of the day into something positive.
+
+### 🌬️ Guided Breathing Exercises
+Three research-backed techniques with animated visuals and haptic feedback:
+- **4-7-8 Calm** — Deep anxiety relief
+- **Box Breathing** — Focus under pressure (used by Navy SEALs)
+- **Equal Breathing** — Simple centering anytime
+
+Haptic pulses guide you through each phase — no need to watch the screen.
+
+### 📖 Mood Journal
+- Quick emotion check-in with 7 mood options
+- Optional free-text reflection (500 char limit to keep it lightweight)
+- Weekly mood trend chart
+- Full entry history
+
+### 📚 Message Library
+- Browse all messages by category
+- Save favorites with one tap
+- Write and store personal mantras that join the notification rotation
+
+### ✨ Quality of Life
+- **No guilt mechanics** — missed a day? "Welcome back. There's no streak to protect here — just a practice to return to."
+- **Dark mode** with warm tones (not pure black)
+- **Journal export** as plain text
+- **Share any message** via native share sheet or clipboard
+- **Crisis resources** (988 Lifeline, Crisis Text Line, SAMHSA) built into settings
+- **Fully offline** — works without internet after first load
+- **Zero data collection** — everything stays on your device
 
 ---
 
-## Sharing with Others
+## Install on Your Phone
 
-Just send anyone the URL. They can:
-- Use it directly in their browser
-- Install it on their home screen (same steps above)
-- Works on iPhone, Android, desktop — any modern browser
+Inner Anchor is a Progressive Web App (PWA). No app store needed.
 
----
+### iPhone
+1. Open the live URL in **Safari**
+2. Tap the **Share button** (square with arrow)
+3. Tap **"Add to Home Screen"**
+4. Tap **Add**
 
-## Push Notification Notes
+### Android
+1. Open the live URL in **Chrome**
+2. Tap the **three-dot menu**
+3. Tap **"Add to Home Screen"** or **"Install app"**
 
-The app supports push notifications on:
-- **Android**: Full support in Chrome. Notifications work even when app is closed.
-- **iPhone (iOS 16.4+)**: Notifications work when the app is installed to home screen AND the app has been opened recently. iOS limits background activity for PWAs.
-
-For the most reliable morning notifications on iPhone:
-- Open the app each morning — it will immediately show you a fresh message
-- The lock screen/home screen installation means your first interaction with your phone IS the app
-
-For truly scheduled push notifications that work regardless of app state, you'd need a backend service like [OneSignal](https://onesignal.com) (free tier: 10,000 subscribers). This is a future enhancement if you want it.
+The app launches fullscreen with its own icon — no browser bar.
 
 ---
 
-## Customization
+## Tech Stack
 
-All messages are in the `index.html` file inside the `MESSAGES` array. You can:
-- Edit existing messages
-- Add new ones (follow the format: `{id:261,t:"Your message",c:"peace"}`)
-- Categories: `peace`, `mastery`, `worth`, `perspective`, `gratitude`
-
-Colors, fonts, and layout are all controlled by CSS variables at the top of the file.
+- **Pure HTML/CSS/JS** — no frameworks, no build step, no dependencies
+- **Service Worker** — offline caching and notification scheduling
+- **PWA Manifest** — installable on any device
+- **localStorage** — all data persists on-device
+- **96KB total** — loads instantly on any connection
 
 ---
 
-## Files Included
+## Self-Host / Deploy Your Own
 
-| File | Purpose |
-|------|---------|
-| `index.html` | The entire app (HTML + CSS + JS, self-contained) |
-| `sw.js` | Service worker for offline support + notification scheduling |
-| `manifest.json` | PWA manifest (app name, icon, display settings) |
-| `netlify.toml` | Netlify-specific config for proper headers |
+The entire app is 4 files. Deploy anywhere that serves static files.
+
+### Netlify (Recommended)
+1. Fork this repo
+2. Go to [app.netlify.com](https://app.netlify.com)
+3. "Add new site" → "Import an existing project" → select your fork
+4. Click Deploy
+
+### Vercel
+1. Fork this repo
+2. Go to [vercel.com](https://vercel.com)
+3. "New Project" → select your fork → Deploy
+
+### GitHub Pages
+1. Fork this repo
+2. Go to Settings → Pages → Source: Deploy from branch → Main → Save
+
+---
+
+## Customize
+
+### Messages
+All 260 messages live in the `MESSAGES` array inside `index.html`. Add your own:
+```javascript
+{id: 261, t: "Your custom message here.", c: "peace"}
+```
+Categories: `peace`, `mastery`, `worth`, `perspective`, `gratitude`, `fear`, `family`, `veda`
+
+### Appearance
+Colors, fonts, and spacing are controlled by CSS variables at the top of `index.html`:
+```css
+--navy: #1a1f3d;
+--cream: #f5f0e8;
+--sage: #7c9a8e;
+--gold: #c4a265;
+```
+
+---
+
+## Project Structure
+
+```
+├── index.html       # The entire app (HTML + CSS + JS)
+├── sw.js            # Service worker (offline + notifications)
+├── manifest.json    # PWA manifest (app name, icon, display)
+├── netlify.toml     # Netlify deployment config
+└── README.md
+```
+
+---
+
+## Privacy
+
+Inner Anchor collects **zero data**. No analytics, no tracking, no network calls after initial load. Your journal entries, favorites, and settings never leave your device.
+
+---
+
+## Support & Crisis Resources
+
+If you or someone you know is struggling:
+
+- **988 Suicide & Crisis Lifeline** — Call or text **988**
+- **Crisis Text Line** — Text **HOME** to **741741**
+- **SAMHSA Helpline** — **1-800-662-4357**
+
+These services are free, confidential, and available 24/7.
+
+---
+
+## License
+
+MIT — Use it, fork it, share it. If it helps one person breathe easier, it was worth building.
