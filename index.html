@@ -473,6 +473,9 @@ body{
       <button class="cat-tab" data-cat="worth">Self-Worth</button>
       <button class="cat-tab" data-cat="perspective">Perspective</button>
       <button class="cat-tab" data-cat="gratitude">Gratitude</button>
+      <button class="cat-tab" data-cat="fear">Overcoming Fear</button>
+      <button class="cat-tab" data-cat="family">Protecting Family</button>
+      <button class="cat-tab" data-cat="veda">Rig Veda</button>
     </div>
     <div class="message-list" id="message-list"></div>
     
@@ -535,6 +538,9 @@ body{
       <div class="setting-row"><div><div class="setting-label">Self-Worth</div></div><button class="toggle on" data-key="cat_worth"></button></div>
       <div class="setting-row"><div><div class="setting-label">Perspective Shifts</div></div><button class="toggle on" data-key="cat_perspective"></button></div>
       <div class="setting-row"><div><div class="setting-label">Gratitude & Presence</div></div><button class="toggle on" data-key="cat_gratitude"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Overcoming Fear</div></div><button class="toggle on" data-key="cat_fear"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Protecting Family</div></div><button class="toggle on" data-key="cat_family"></button></div>
+      <div class="setting-row"><div><div class="setting-label">Rig Veda Wisdom</div></div><button class="toggle on" data-key="cat_veda"></button></div>
     </div>
 
     <div class="setting-group">
@@ -869,11 +875,137 @@ const MESSAGES=[
 {id:257,t:"The fact that flowers grow through concrete should tell you everything about your ability to bloom.",c:"gratitude"},
 {id:258,t:"Before your feet hit the floor tomorrow morning, think of three things worth waking up for.",c:"gratitude"},
 {id:259,t:"This moment — right here, right now — is the one you'll never get back. Be here for it.",c:"gratitude"},
-{id:260,t:"You are witnessing your own life. Don't forget to enjoy the view.",c:"gratitude"}
+{id:260,t:"You are witnessing your own life. Don't forget to enjoy the view.",c:"gratitude"},
+
+// OVERCOMING FEAR (fear) — 40 messages
+{id:261,t:"Fear is not a wall. It's a door with a handle on your side.",c:"fear"},
+{id:262,t:"Courage is not the absence of fear. It's deciding that something else matters more.",c:"fear"},
+{id:263,t:"The thing you're most afraid of has already happened in your mind a thousand times. Reality is almost always kinder.",c:"fear"},
+{id:264,t:"Fear shrinks when you walk toward it. It grows when you run. Turn around.",c:"fear"},
+{id:265,t:"You were not given this life to spend it hiding from it.",c:"fear"},
+{id:266,t:"Every brave person you admire was terrified before they began. They just started anyway.",c:"fear"},
+{id:267,t:"Fear whispers 'what if you fail?' but never asks 'what if you fly?'",c:"fear"},
+{id:268,t:"The cage is open. It has been open. The only thing keeping you inside is the memory of when it was locked.",c:"fear"},
+{id:269,t:"You have already survived things you once thought would destroy you. Update your threat assessment.",c:"fear"},
+{id:270,t:"Fear is a storyteller, not a prophet. It narrates worst cases, not certainties.",c:"fear"},
+{id:271,t:"On the other side of fear is every version of your life you've been too scared to build.",c:"fear"},
+{id:272,t:"Your comfort zone has good WiFi, but nothing grows there.",c:"fear"},
+{id:273,t:"The lion doesn't lose sleep over the opinion of sheep. Stop fearing judgment from people who aren't living your life.",c:"fear"},
+{id:274,t:"Action cures fear. Inaction feeds it. Do one small brave thing today.",c:"fear"},
+{id:275,t:"Fear of failure is just fear of learning in disguise. And you've been learning your entire life.",c:"fear"},
+{id:276,t:"The body doesn't know the difference between excitement and fear. What if you're not scared — what if you're ready?",c:"fear"},
+{id:277,t:"You don't have to feel ready to begin. Readiness is built by doing, not waiting.",c:"fear"},
+{id:278,t:"The worst-case scenario you keep rehearsing almost never plays out the way you imagine it.",c:"fear"},
+{id:279,t:"Fear says 'protect yourself.' Wisdom says 'from what, exactly?' Get specific. Most fears dissolve under examination.",c:"fear"},
+{id:280,t:"A ship in harbor is safe, but that's not what ships are built for. Neither are you.",c:"fear"},
+{id:281,t:"The things that scare you and the things that will change your life are usually the same things.",c:"fear"},
+{id:282,t:"You are braver than your anxiety gives you credit for. Look at the evidence of your own life.",c:"fear"},
+{id:283,t:"Fear is temporary. Regret is permanent. Choose the discomfort that leads somewhere.",c:"fear"},
+{id:284,t:"The first step doesn't have to be big. It just has to be in the direction of what scares you.",c:"fear"},
+{id:285,t:"Stop asking 'what could go wrong?' and start asking 'what could go right?'",c:"fear"},
+{id:286,t:"If you wait until you're not afraid, you'll wait forever. Move with the fear. Bring it along.",c:"fear"},
+{id:287,t:"The unknown is not your enemy. It's the canvas your next chapter is painted on.",c:"fear"},
+{id:288,t:"Fear of rejection is just fear of being seen. But being seen is the only path to being known.",c:"fear"},
+{id:289,t:"Your ancestors crossed oceans, survived wars, and rebuilt from ashes. Their courage runs in your blood.",c:"fear"},
+{id:290,t:"What would you attempt if you knew you could not fail? Now go attempt it anyway.",c:"fear"},
+{id:291,t:"Fear makes the wolf bigger than it is. Step closer and see its true size.",c:"fear"},
+{id:292,t:"The world rewards those who act despite their fear, not those who wait for it to pass.",c:"fear"},
+{id:293,t:"You are not fragile. You have been tested by life and you are still here. Trust that resilience.",c:"fear"},
+{id:294,t:"Every expert, leader, and creator you respect has a highlight reel of failures they walked through afraid.",c:"fear"},
+{id:295,t:"Fear is just excitement without breath. Breathe deeply and feel it transform.",c:"fear"},
+{id:296,t:"The mountain looks impossible from the bottom. But it's climbed one step at a time by ordinary people every day.",c:"fear"},
+{id:297,t:"Stop rehearsing your funeral and start living your life.",c:"fear"},
+{id:298,t:"Avoiding what scares you doesn't make you safe. It makes your world smaller.",c:"fear"},
+{id:299,t:"You weren't born to play it safe. You were born to play it true.",c:"fear"},
+{id:300,t:"The fear you don't face becomes your limit. The fear you walk through becomes your story.",c:"fear"},
+
+// PROTECTING YOUR FAMILY (family) — 40 messages
+{id:301,t:"The greatest inheritance you can leave your family is not wealth — it's emotional stability.",c:"family"},
+{id:302,t:"A calm father in a storm teaches his children that storms can be survived.",c:"family"},
+{id:303,t:"Protecting your family starts with protecting your peace. You can't pour from a shattered vessel.",c:"family"},
+{id:304,t:"Your children don't need a perfect parent. They need a present one.",c:"family"},
+{id:305,t:"The strongest walls you build for your family are not made of brick. They're made of consistency, honesty, and showing up.",c:"family"},
+{id:306,t:"When you heal yourself, you break a chain that would have reached your children. That is legacy work.",c:"family"},
+{id:307,t:"A family doesn't need a hero. It needs a human who is brave enough to be honest about their struggles.",c:"family"},
+{id:308,t:"The way you treat yourself teaches your family how they should expect to be treated.",c:"family"},
+{id:309,t:"Providing for your family isn't just financial. Emotional safety is the roof over every home that lasts.",c:"family"},
+{id:310,t:"Your patience today is your child's inner voice tomorrow. Make it a kind one.",c:"family"},
+{id:311,t:"Love is not enough to protect a family. Love plus boundaries plus self-awareness — that's the fortress.",c:"family"},
+{id:312,t:"Being strong for your family sometimes means being vulnerable with them. They need to see your humanity.",c:"family"},
+{id:313,t:"The generational cycle ends with whoever is brave enough to feel the pain and choose differently.",c:"family"},
+{id:314,t:"Your family doesn't need you to have all the answers. They need you to be safe to ask questions around.",c:"family"},
+{id:315,t:"A protector who never rests becomes a liability. Take care of yourself so you can take care of them.",c:"family"},
+{id:316,t:"The conversations you're afraid to have with your family are the ones that will bring you closer.",c:"family"},
+{id:317,t:"Showing your children how to apologize is more powerful than never making mistakes.",c:"family"},
+{id:318,t:"Guard your home not just from outside threats, but from the bitterness, resentment, and silence that grow within.",c:"family"},
+{id:319,t:"You are building something with your family that no one else can see yet. Keep building.",c:"family"},
+{id:320,t:"The best thing a father can do for his children is take care of their father.",c:"family"},
+{id:321,t:"Your family watches how you handle failure more closely than how you handle success. Show them grace.",c:"family"},
+{id:322,t:"Home should be the place where armor comes off. Make it safe enough for everyone to be real.",c:"family"},
+{id:323,t:"You don't protect your family by being invincible. You protect them by being dependable.",c:"family"},
+{id:324,t:"The tone you set in your home becomes the weather your family lives in. Choose warmth.",c:"family"},
+{id:325,t:"Being present at dinner matters more than being impressive at work. Your family keeps the real score.",c:"family"},
+{id:326,t:"Teach your children to be brave by letting them see you face your own fears honestly.",c:"family"},
+{id:327,t:"A family built on truth can survive anything. A family built on performance will eventually crack.",c:"family"},
+{id:328,t:"The sacrifices you make for your family don't need an audience. But they do need to leave you whole enough to keep going.",c:"family"},
+{id:329,t:"Your partner is not your enemy. The problem is the enemy. Face it together.",c:"family"},
+{id:330,t:"Every time you choose calm over rage in front of your children, you are rewriting their definition of strength.",c:"family"},
+{id:331,t:"Protecting your family means having the hard conversations, setting the uncomfortable boundaries, and staying when it's easier to leave.",c:"family"},
+{id:332,t:"The family you build can be better than the one you came from. That possibility is in your hands.",c:"family"},
+{id:333,t:"Love is a verb in a family. It's the dishes done, the patience held, the forgiveness given before it's asked for.",c:"family"},
+{id:334,t:"You are your child's first example of how a person treats themselves. Make it a lesson worth learning.",c:"family"},
+{id:335,t:"A family that can laugh together, cry together, and sit in silence together has everything it needs.",c:"family"},
+{id:336,t:"Your family doesn't need you to carry the world. They need you to let them help carry it with you.",c:"family"},
+{id:337,t:"The strength of a family isn't measured by what it avoids — it's measured by what it survives together.",c:"family"},
+{id:338,t:"Discipline without connection is just control. Connect first, then guide.",c:"family"},
+{id:339,t:"You are planting seeds in your children that you may never see bloom. Trust the soil you've prepared.",c:"family"},
+{id:340,t:"Legacy isn't what you leave for your family. It's what you leave in them.",c:"family"},
+
+// RIG VEDA WISDOM (veda) — 40 messages inspired by Rig Vedic themes
+{id:341,t:"Let noble thoughts come to us from every side — from the earth, the sky, and the waters between.",c:"veda"},
+{id:342,t:"Truth is one; the wise call it by many names. Your path to it is as valid as any other.",c:"veda"},
+{id:343,t:"Like rivers flowing toward the ocean, all sincere efforts flow toward their purpose. Trust the current.",c:"veda"},
+{id:344,t:"The divine spark within you is the same fire that lights the stars. You are not small.",c:"veda"},
+{id:345,t:"As the dawn scatters darkness without violence, let your awareness dissolve what troubles you — gently, inevitably.",c:"veda"},
+{id:346,t:"The ancient seers sang: 'From darkness, lead me to light.' This prayer lives in you every time you choose growth over comfort.",c:"veda"},
+{id:347,t:"Like Agni, the sacred fire, your inner flame grows stronger when fed with discipline and devotion.",c:"veda"},
+{id:348,t:"The Vedic sages understood: the universe began with intention. Your thoughts are creation in miniature. Choose them carefully.",c:"veda"},
+{id:349,t:"As Indra splits the cloud to release rain, let your courage break through the barriers of doubt within you.",c:"veda"},
+{id:350,t:"The hymns teach that speech is sacred — it can build or destroy. Let your words today be offerings, not weapons.",c:"veda"},
+{id:351,t:"Ushas, the goddess of dawn, returns every morning without fail. So does your chance to begin again.",c:"veda"},
+{id:352,t:"The sages declared: the Self cannot be pierced, burned, or broken. The deepest part of you is beyond harm.",c:"veda"},
+{id:353,t:"As the soma is purified through pressing and filtering, your character is refined through challenge and reflection.",c:"veda"},
+{id:354,t:"The Vedic vision sees divinity in water, in fire, in wind, in you. You are not separate from the sacred.",c:"veda"},
+{id:355,t:"The ancient prayer asks for strength, wisdom, and freedom from fear. These three wishes are still the right ones.",c:"veda"},
+{id:356,t:"Like the Ashvins who heal at dawn, let each new morning bring restoration to what was broken yesterday.",c:"veda"},
+{id:357,t:"The rishis saw order beneath chaos — Rta, the cosmic harmony. Even in your disorder, a pattern is emerging.",c:"veda"},
+{id:358,t:"As the sun illuminates the world without choosing what to light, let your goodness shine without choosing who deserves it.",c:"veda"},
+{id:359,t:"The Vedas teach that the universe was born from a single pulse of desire. Your deepest longings connect you to creation itself.",c:"veda"},
+{id:360,t:"Like Varuna who watches over cosmic truth, be a guardian of your own integrity. Let your inner law be unshakable.",c:"veda"},
+{id:361,t:"The hymn says: 'May we be united in heart, united in purpose.' Peace begins when you stop warring with yourself.",c:"veda"},
+{id:362,t:"The sages knew that true wealth is not gold but insight. What you understand about yourself is your greatest treasure.",c:"veda"},
+{id:363,t:"As rivers lose their name when they merge with the sea, let your ego soften into something larger than itself.",c:"veda"},
+{id:364,t:"The Rig Veda marvels at creation: 'Who truly knows? Who can declare it?' Humility before mystery is itself a form of wisdom.",c:"veda"},
+{id:365,t:"Like the sacred fire that transforms offering into essence, let your difficulties become fuel for transformation.",c:"veda"},
+{id:366,t:"The ancient chant asks Savitar, the sun god, to inspire our thoughts. Today, let light — not fear — direct your mind.",c:"veda"},
+{id:367,t:"The Vedic worldview holds that every being carries a piece of the cosmic order. Your existence is not accidental — it is structural.",c:"veda"},
+{id:368,t:"As the charioteer guides horses with steady hands, guide your senses with steady awareness. Mastery is an inside job.",c:"veda"},
+{id:369,t:"The sages prayed for long life not out of fear of death, but out of love for the work still left to do. What work calls you?",c:"veda"},
+{id:370,t:"Like Saraswati, the river of knowledge, let your mind flow — clear, purposeful, nourishing everything it touches.",c:"veda"},
+{id:371,t:"The hymns remind us: we are children of immortality. The struggles of this moment do not define your eternal nature.",c:"veda"},
+{id:372,t:"As the priest tends the sacred fire through the night, tend your inner flame through seasons of darkness. It will not go out.",c:"veda"},
+{id:373,t:"The Rig Veda celebrates the generous heart: 'The one who gives freely lives fully.' Generosity is the antidote to scarcity thinking.",c:"veda"},
+{id:374,t:"Like Vayu, the wind that moves unseen but shapes everything, your influence reaches further than you know. Live accordingly.",c:"veda"},
+{id:375,t:"The ancient wisdom says: friendship is the highest bond between beings. Nurture your connections — they are sacred ties.",c:"veda"},
+{id:376,t:"As the Maruts ride the storm with joy, not terror, learn to meet life's turbulence with fierce aliveness instead of dread.",c:"veda"},
+{id:377,t:"The Vedic seer asks: 'What is the farthest limit of the earth, the center of the universe?' The answer has always been: where you stand.",c:"veda"},
+{id:378,t:"Like the cosmic hymn that sings creation into being, your daily rituals are small acts of creation. Treat them with reverence.",c:"veda"},
+{id:379,t:"The rishis taught that light and darkness are not enemies — they are brothers who take turns. Honor both your bright and shadow sides.",c:"veda"},
+{id:380,t:"The Rig Veda's final prayer: 'Let us come together, speak together, let our minds be in harmony.' Start with the harmony inside you.",c:"veda"}
 ];
 
-const CAT_LABELS={peace:"Inner Peace",mastery:"Emotional Mastery",worth:"Self-Worth",perspective:"Perspective",gratitude:"Gratitude"};
-const CAT_COLORS={peace:"#7aa3b8",mastery:"#8b8aac",worth:"#c28b8b",perspective:"#c4a265",gratitude:"#7c9a8e"};
+const CAT_LABELS={peace:"Inner Peace",mastery:"Emotional Mastery",worth:"Self-Worth",perspective:"Perspective",gratitude:"Gratitude",fear:"Overcoming Fear",family:"Protecting Family",veda:"Rig Veda Wisdom"};
+const CAT_COLORS={peace:"#7aa3b8",mastery:"#8b8aac",worth:"#c28b8b",perspective:"#c4a265",gratitude:"#7c9a8e",fear:"#a8a5b8",family:"#7c9a8e",veda:"#c4a265"};
 const MOODS=[
   {key:"calm",emoji:"😌",label:"Calm",score:5,color:"#7c9a8e"},
   {key:"anxious",emoji:"😰",label:"Anxious",score:2,color:"#8b8aac"},
@@ -902,7 +1034,7 @@ let state={
   settings:LS.get('settings',{
     morningShield:true,morningStart:'07:00',morningEnd:'09:00',
     darkMode:false,notifications:false,
-    cat_peace:true,cat_mastery:true,cat_worth:true,cat_perspective:true,cat_gratitude:true
+    cat_peace:true,cat_mastery:true,cat_worth:true,cat_perspective:true,cat_gratitude:true,cat_fear:true,cat_family:true,cat_veda:true
   }),
   onboarded:LS.get('onboarded',false),
   selectedMood:null,
@@ -949,16 +1081,11 @@ function drawAnchorIcon(ctx,x,y,color){
   ctx.save();
   ctx.strokeStyle=color;ctx.fillStyle=color;
   ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
-  // Ring at top
   ctx.beginPath();ctx.arc(x,y-18,6,0,Math.PI*2);ctx.stroke();
-  // Vertical shaft
   ctx.beginPath();ctx.moveTo(x,y-12);ctx.lineTo(x,y+14);ctx.stroke();
-  // Cross bar
   ctx.beginPath();ctx.moveTo(x-10,y-4);ctx.lineTo(x+10,y-4);ctx.stroke();
-  // Curved flukes at bottom
   ctx.beginPath();ctx.moveTo(x-14,y+2);ctx.quadraticCurveTo(x-14,y+16,x,y+14);ctx.stroke();
   ctx.beginPath();ctx.moveTo(x+14,y+2);ctx.quadraticCurveTo(x+14,y+16,x,y+14);ctx.stroke();
-  // Small dot at top of ring
   ctx.beginPath();ctx.arc(x,y-24,2.5,0,Math.PI*2);ctx.fill();
   ctx.restore();
 }
@@ -969,26 +1096,22 @@ async function generateShareCard(msg){
   canvas.width=W;canvas.height=H;
   const ctx=canvas.getContext('2d');
 
-  // Background — navy gradient
   const bg=ctx.createLinearGradient(0,0,0,H);
   bg.addColorStop(0,'#1a1f3d');bg.addColorStop(1,'#141729');
   ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
 
-  // Subtle radial glow center
   const glow=ctx.createRadialGradient(W/2,H*0.42,0,W/2,H*0.42,W*0.6);
   glow.addColorStop(0,'rgba(124,154,142,0.06)');glow.addColorStop(1,'rgba(0,0,0,0)');
   ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
 
   const accent=CAT_COLORS[msg.c]||'#7c9a8e';
 
-  // Accent line
   const lineY=H*0.22;
   ctx.strokeStyle=accent;ctx.lineWidth=2;ctx.globalAlpha=0.5;
   ctx.beginPath();ctx.moveTo(W*0.3,lineY);ctx.lineTo(W*0.7,lineY);ctx.stroke();
   ctx.globalAlpha=1;
 
-  // Quote text — adaptive font size
-  const quoteText='"'+msg.t+'"';
+  const quoteText='\u201c'+msg.t+'\u201d';
   const len=quoteText.length;
   const fontSize=len>180?38:len>120?42:len>80?48:54;
   const lineHeight=fontSize*1.55;
@@ -1007,7 +1130,6 @@ async function generateShareCard(msg){
     ctx.fillText(line,W/2,textStartY+i*lineHeight);
   });
 
-  // Category label
   const catY=textStartY+totalTextHeight+50;
   ctx.font='600 22px "DM Sans", system-ui, sans-serif';
   ctx.fillStyle=accent;
@@ -1015,7 +1137,6 @@ async function generateShareCard(msg){
   const catText=(CAT_LABELS[msg.c]||'').toUpperCase();
   ctx.fillText(catText,W/2,catY);
 
-  // Anchor icon + branding at bottom
   const brandY=H-160;
   drawAnchorIcon(ctx,W/2,brandY,'rgba(245,240,232,0.25)');
 
@@ -1023,7 +1144,6 @@ async function generateShareCard(msg){
   ctx.fillStyle='rgba(245,240,232,0.3)';
   ctx.fillText('Inner Anchor',W/2,brandY+40);
 
-  // Convert to blob
   return new Promise(resolve=>{
     canvas.toBlob(blob=>resolve(blob),'image/png');
   });
@@ -1152,23 +1272,21 @@ document.getElementById('home-share').addEventListener('click',async()=>{
   if(!currentMsg)return;
   const btn=document.getElementById('home-share');
   btn.style.pointerEvents='none';btn.style.opacity='0.5';
-  toast('Creating share image…');
-  const text=currentMsg.t+'\n\n— Inner Anchor';
+  toast('Creating share image\u2026');
   try{
     const blob=await generateShareCard(currentMsg);
     const file=new File([blob],'inner-anchor-quote.png',{type:'image/png'});
     if(navigator.canShare&&navigator.canShare({files:[file]})){
-      await navigator.share({files:[file],text});
+      await navigator.share({files:[file]});
     }else if(navigator.share){
       downloadBlob(blob,'inner-anchor-quote.png');
       toast('Image saved!');
-      try{await navigator.share({text})}catch{}
     }else{
       downloadBlob(blob,'inner-anchor-quote.png');
-      try{await navigator.clipboard.writeText(text);toast('Image saved & text copied!')}catch{toast('Image saved!')}
+      toast('Image saved!');
     }
   }catch(e){
-    // Canvas failed — fall back to plain text sharing
+    const text=currentMsg.t+'\n\n— Inner Anchor';
     if(navigator.share){
       try{await navigator.share({text})}catch{}
     }else{
